@@ -8,6 +8,7 @@ import { connectMongo } from './db/connectMongo'
 
 import { userRouter } from './routes/user.route'
 import { categoryRouter } from './routes/category.route'
+import { productRouter } from './routes/product.route'
 dotenv.config()
 
 const app = express()
@@ -26,6 +27,7 @@ app.use(cors(corsOptions))
 
 app.use('/users', userRouter)
 app.use('/admin/categories', categoryRouter)
+app.use('/admin/products', productRouter)
 
 app.listen(PORT, () => {
   connectMongo()
