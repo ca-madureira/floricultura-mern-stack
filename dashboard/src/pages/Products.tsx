@@ -1,36 +1,50 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { productSchema } from "../schemas/productSchema"; // Path do schema do produto
+import { productSchema } from "../schemas/productSchema"; // Path para o schema do produto
 import { createProduct } from "../services/products"; // Path para o serviço de criar produto
+import { getAllCategories } from "../services/categories";
+
+import ProductTable from "../components/ProductTable";
 
 interface ProductData {
   title: string;
   description: string;
   category: string;
   price: number;
-  image: FileList; // Mudando para FileList para suportar o arquivo
+  stock: number;
+  image: string | null; // Agora a imagem é uma string base64 ou null
+}
+
+interface Category {
+  _id: string;
+  name: string;
 }
 
 export const Products = () => {
-  // Mutação com React Query
+  const { data } = useQuery<Category[], Error>({
+    queryKey: ["categories"],
+    queryFn: getAllCategories,
+  });
+
   const { mutate } = useMutation({
     mutationFn: (productData: {
       title: string;
       description: string;
       category: string;
       price: number;
-      image: File;
+      stock: number;
+      image: string | null; // A imagem agora é uma string base64
     }) => {
-      return createProduct(productData); // Passando os dados do produto para a requisição
+      return createProduct(productData);
     },
   });
 
-  // Hook do formulário
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue, // Necessário para atualizar o campo de imagem programaticamente
   } = useForm<ProductData>({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -38,33 +52,53 @@ export const Products = () => {
       description: "",
       category: "",
       price: 0,
-      image: undefined, // Alterando para aceitar arquivo
+      stock: 0,
+      image: null, // Iniciando como null
     },
   });
 
-  // Função de submissão do formulário
+  // Função para lidar com o upload da imagem
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; // Pega o primeiro arquivo selecionado
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Aqui você seta a imagem no estado do formulário como base64
+        setValue("image", reader.result as string); // Usa o `setValue` para atualizar o valor no react-hook-form
+      };
+      reader.readAsDataURL(file); // Converte o arquivo para base64
+    }
+  };
+
   const onSubmit = async (data: ProductData) => {
+    const price = parseFloat(data.price.toString().replace(",", "."));
+    const stock = parseInt(data.stock.toString(), 10);
+
+    if (isNaN(price) || isNaN(stock)) {
+      return;
+    }
+
     const productData = {
       title: data.title,
       description: data.description,
       category: data.category,
-      price: data.price,
-      image: data.image[0], // Selecionando a imagem do FileList
+      price,
+      stock,
+      image: data.image, // A imagem já estará em base64 aqui
     };
 
-    // Chamando a mutação passando os dados do produto
-    mutate(productData);
+    mutate(productData); // Envio da mutação
   };
 
   return (
-    <main className="flex flex-col gap-20 bg-slate-200 w-full h-full">
+    <main className="flex flex-col gap-20 bg-slate-200 w-full h-full justify-between">
       <section className="h-[9.6vh] flex items-center text-2xl font-semibold pl-2 text-slate-600 border-b-2 border-gray-300">
         <h1>Criar Produto</h1>
       </section>
 
       <section className="border-2 border-slate-400 h-[12vh] bg-purple-200">
         <form
-          onSubmit={handleSubmit(onSubmit)} // Submete os dados com validação
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-4 p-4"
         >
           <label htmlFor="title">Nome do Produto:</label>
@@ -92,13 +126,18 @@ export const Products = () => {
           )}
 
           <label htmlFor="category">Categoria:</label>
-          <input
+          <select
             id="category"
-            type="text"
-            placeholder="Escreva a categoria do produto"
-            className="outline-none border-b-2 border-gray-200"
             {...register("category")}
-          />
+            className="outline-none border-b-2 border-gray-200"
+          >
+            <option value="">Selecione uma categoria</option>
+            {data?.map((category) => (
+              <option key={category._id} value={category._id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
           {errors.category && (
             <span className="text-red-500">{errors.category.message}</span>
           )}
@@ -106,13 +145,29 @@ export const Products = () => {
           <label htmlFor="price">Preço:</label>
           <input
             id="price"
-            type="number"
+            type="text"
             placeholder="Escreva o preço do produto"
             className="outline-none border-b-2 border-gray-200"
-            {...register("price")}
+            {...register("price", {
+              setValueAs: (value) =>
+                parseFloat(value.toString().replace(",", ".")),
+            })}
           />
           {errors.price && (
             <span className="text-red-500">{errors.price.message}</span>
+          )}
+
+          <label htmlFor="stock">Estoque:</label>
+          <input
+            id="stock"
+            type="text"
+            className="outline-none border-b-2 border-gray-200"
+            {...register("stock", {
+              setValueAs: (value) => parseInt(value.toString(), 10),
+            })}
+          />
+          {errors.stock && (
+            <span className="text-red-500">{errors.stock.message}</span>
           )}
 
           <label htmlFor="image">Imagem (Upload):</label>
@@ -120,7 +175,7 @@ export const Products = () => {
             id="image"
             type="file"
             className="outline-none border-b-2 border-gray-200"
-            {...register("image")}
+            onChange={handleImageChange} // Usar a função handleImageChange
           />
           {errors.image && (
             <span className="text-red-500">{errors.image.message}</span>
@@ -130,6 +185,10 @@ export const Products = () => {
             Criar Produto
           </button>
         </form>
+      </section>
+
+      <section>
+        <ProductTable />
       </section>
     </main>
   );

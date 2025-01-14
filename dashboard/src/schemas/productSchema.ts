@@ -20,8 +20,11 @@ export const productSchema = z.object({
     .positive("O preço deve ser um número positivo")
     .min(0.01, "O preço deve ser maior que zero"),
 
-  image: z
-    .string()
-    .url("A URL da imagem é inválida")
-    .nonempty("A imagem é obrigatória"),
+  stock: z
+    .number()
+    .int("O estoque deve ser um número inteiro")
+    .nonnegative("O estoque não pode ser negativo")
+    .min(0, "O estoque não pode ser negativo"),
+
+  image: z.string().min(1, "A imagem é obrigatória"), // Validação de string base64
 });
