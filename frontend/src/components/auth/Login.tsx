@@ -1,39 +1,40 @@
 import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
+// import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-
 import signupImage from "../../assets/notebook.svg";
-import { login } from "../../services/users";
+// import { login } from "../../services/users";
 import { registerSchema } from "../../schemas/userSchema";
-import { useDispatch } from "react-redux";
-import { setLogin } from "../../store/auth-slice";
-import { useNavigate } from "react-router-dom";
-// import { useEffect } from "react";
-//import { RootState } from "../../store/types";
+// import { useDispatch } from "react-redux";
+// import { setLogin } from "../../store/auth-slice";
+// import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  //const userState = useSelector((state: RootState) => state.user);
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
-  const { mutate } = useMutation({
-    mutationFn: ({ email, password }: { email: string; password: string }) => {
-      return login({ email, password });
-    },
-    onSuccess: (data) => {
-      // localStorage.setItem("account", JSON.stringify(data)); // Verifique se isso é necessário
-      dispatch(setLogin({ user: data.user, token: data.token }));
-      navigate("/");
-    },
-  });
+  // const { mutate } = useMutation({
+  //   mutationFn: ({ email, password }: { email: string; password: string }) => {
+  //     return login({ email, password });
+  //   },
+  //   onSuccess: (data) => {
+  //     // // Salva no localStorage os dados do usuário e o token
+  //     // localStorage.setItem("account", JSON.stringify(data)); // Salva as informações no localStorage
 
-  // useEffect(() => {
-  //   if (userState.isAuthenticated) {
-  //     navigate("/"); // Se o usuário já estiver autenticado, redireciona para a home
-  //   }
-  // }, [navigate, userState.isAuthenticated]);
+  //     // // Atualiza o estado do Redux
+  //     // dispatch(setLogin({ user: data.user, token: data.token }));
+
+  //     // // Redireciona para a home
+  //     // navigate("/", { replace: true });
+  //     console.log(data);
+  //     console.log("sucesso");
+  //   },
+  //   onError: (error) => {
+  //     console.log("Erro no login:", error);
+  //     // Aqui, você pode mostrar uma mensagem de erro
+  //   },
+  // });
 
   const {
     register,
@@ -49,7 +50,9 @@ export const Login = () => {
   });
 
   const onSubmit = (data: { email: string; password: string }) => {
-    mutate(data);
+    // mutate(data);
+    console.log("sucesso");
+    console.log(data);
   };
 
   return (
