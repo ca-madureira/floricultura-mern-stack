@@ -17,7 +17,7 @@ export const createCategory = async (req: Request, res: Response) => {
 export const getAllCategories = async (req: Request, res: Response) => {
   try {
     const categories = await getAllCategoriesService()
-    res.status(201).json(categories)
+    res.status(200).json(categories)
   } catch (error) {
     res
       .status(500)

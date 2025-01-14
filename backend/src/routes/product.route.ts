@@ -1,8 +1,13 @@
 import express from 'express'
-import upload from '../middlewares/multer'
 
 export const productRouter = express.Router()
 
-import { createProduct } from '../controller/product.controller'
+import {
+  createProduct,
+  getAllProducts,
+  deleteProductById,
+} from '../controller/product.controller'
 
-productRouter.post('/create', upload.single('image'), createProduct)
+productRouter.post('/create', createProduct)
+productRouter.get('/', getAllProducts)
+productRouter.delete('/:id', deleteProductById)

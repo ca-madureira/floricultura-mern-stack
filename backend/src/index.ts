@@ -15,6 +15,10 @@ const app = express()
 
 const PORT = process.env.PORT || 3000
 
+console.log(process.env.CLOUD_NAME) // Verifique se a variável está sendo carregada
+console.log(process.env.API_KEY)
+console.log(process.env.API_SECRET)
+
 app.use(bodyParser.json({ limit: '10mb' }))
 app.use(express.urlencoded({ extended: true, limit: '10mb' }))
 app.use(express.json())
@@ -26,6 +30,7 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 app.use('/users', userRouter)
+app.use('/products', productRouter)
 app.use('/admin/categories', categoryRouter)
 app.use('/admin/products', productRouter)
 
