@@ -9,14 +9,14 @@ import MainLayout from "./components/MainLayout";
 import { Home } from "./pages/Home";
 import { Cart } from "./pages/Cart";
 
-// const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
-//   const { isAuthenticated } = useSelector((state: RootState) => state.user);
-//   if (!isAuthenticated) {
-//     return <Navigate to="/login" replace />;
-//   }
+const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated } = useSelector((state: RootState) => state.user);
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
-//   return children;
-// };
+  return children;
+};
 
 const AuthenticatedUser = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
@@ -32,9 +32,9 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: (
-      // <ProtectedRoutes>
-      <MainLayout />
-      // </ProtectedRoutes>
+      <ProtectedRoutes>
+        <MainLayout />
+      </ProtectedRoutes>
     ),
     children: [
       {

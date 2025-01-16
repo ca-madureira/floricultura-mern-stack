@@ -1,47 +1,46 @@
 import { useForm } from "react-hook-form";
-// import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-import signupImage from "../../assets/notebook.svg";
-// import { login } from "../../services/users";
-import { registerSchema } from "../../schemas/userSchema";
-// import { useDispatch } from "react-redux";
-// import { setLogin } from "../../store/auth-slice";
-// import { useNavigate } from "react-router-dom";
+
+import signupImage from "../../assets/signup_login.svg";
+import { login } from "../../services/users";
+import { setLogin } from "../../store/auth-slice";
+import { loginSchema } from "../../schemas/userSchema";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 export const Login = () => {
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // const { mutate } = useMutation({
-  //   mutationFn: ({ email, password }: { email: string; password: string }) => {
-  //     return login({ email, password });
-  //   },
-  //   onSuccess: (data) => {
-  //     // // Salva no localStorage os dados do usuário e o token
-  //     // localStorage.setItem("account", JSON.stringify(data)); // Salva as informações no localStorage
+  const { mutate } = useMutation({
+    mutationFn: ({ email, password }: { email: string; password: string }) => {
+      return login({ email, password });
+    },
+    onSuccess: (data) => {
+      if (data?.userWithoutPassword && data?.token) {
+        dispatch(
+          setLogin({
+            user: data.userWithoutPassword,
+            token: data.token,
+          })
+        );
+        navigate("/");
+      }
+      console.log(data);
+    },
+  });
 
-  //     // // Atualiza o estado do Redux
-  //     // dispatch(setLogin({ user: data.user, token: data.token }));
-
-  //     // // Redireciona para a home
-  //     // navigate("/", { replace: true });
-  //     console.log(data);
-  //     console.log("sucesso");
-  //   },
-  //   onError: (error) => {
-  //     console.log("Erro no login:", error);
-  //     // Aqui, você pode mostrar uma mensagem de erro
-  //   },
-  // });
+  console.log("storage", localStorage.getItem("account"));
 
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -50,30 +49,28 @@ export const Login = () => {
   });
 
   const onSubmit = (data: { email: string; password: string }) => {
-    // mutate(data);
-    console.log("sucesso");
-    console.log(data);
+    mutate(data);
   };
 
   return (
-    <section className="w-full min-h-screen flex items-start border-4 border-purple-900">
-      <section className="relative w-1/2 min-h-screen flex flex-col border-2 border-red-200">
+    <section className="flex justify-center h-screen md:items-start ">
+      <section className="relative w-1/2 flex flex-col hidden md:block">
         <section>
-          <h1 className="text-2xl text-sky-500 font-bold my-4">
-            Cadastre-se e comece a fazer suas compras
+          <h1 className="text-2xl text-[#27984c] font-bold my-4">
+            Faça seu login e vamos às compras
           </h1>
-          <p className="text-lg text-sky-400 font-bold my-4">
-            Os melhores preços estão na Lojinha de Flores de Papel
+          <p className="text-lg text-gray-400 font-light  my-4">
+            Os melhores preços estão aqui!
           </p>
         </section>
         <img src={signupImage} className="w-full h-full object-cover" />
       </section>
 
-      <section className="w-1/2 min-h-screen bg-[#f5f5f5] flex flex-col p-20 border-2 border-red-200">
+      <section className=" md:w-1/2 flex flex-col md:p-20 ">
         <h1 className="text-lg text-[#060606] font-semibold"></h1>
         <section>
-          <h3 className="text-2xl font-semibold mb-4">Cadastro</h3>
-          <p className="text-sm mb-2">
+          <h3 className="text-2xl font-semibold mb-4 text-slate-600">Login</h3>
+          <p className="text-sm mb-2 text-slate-600">
             Bem-vindo(a)! Por favor insira seus dados
           </p>
           <section className="flex flex-col">
@@ -99,7 +96,7 @@ export const Login = () => {
                   {errors.email?.message}
                 </p>
               )}
-              <MdOutlineAlternateEmail className="absolute left-2 top-2.5 w-5 h-5 text-gray-400" />
+              <MdOutlineAlternateEmail className="absolute left-2 top-4 w-5 h-5 text-gray-400" />
             </div>
 
             <div className="relative">
@@ -123,25 +120,28 @@ export const Login = () => {
                   {errors.password?.message}
                 </p>
               )}
-              <RiLockPasswordLine className="absolute left-2 top-2.5 w-5 h-5 text-gray-400" />
+              <RiLockPasswordLine className="absolute left-2 top-4 w-5 h-5 text-gray-400" />
             </div>
 
-            <p className="mt-2">
-              Já possui conta?{" "}
-              <a href="/signup" className="text-blue-500">
-                cadastrar
+            <p className="mt-2 text-sm text-slate-600">
+              Ainda não possui conta?{" "}
+              <a
+                href="/signup"
+                className="text-[#27984c] font-semibold hover:underline"
+              >
+                Cadastre-se
               </a>
             </p>
           </section>
 
-          <section className="w-full flex flex-col my-4 ">
+          <section className="w-full flex flex-col my-4">
             <button
               type="submit"
               disabled={!isValid}
-              onClick={handleSubmit(onSubmit)} // Aqui você já está usando o handleSubmit
-              className="w-full text-white bg-sky-500 rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
+              onClick={handleSubmit(onSubmit)}
+              className="w-full text-white font-bold bg-[#27984c] rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
             >
-              Logar
+              Entrar
             </button>
           </section>
         </section>
