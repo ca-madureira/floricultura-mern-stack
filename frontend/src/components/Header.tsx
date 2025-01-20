@@ -1,11 +1,15 @@
 import { FaCartShopping } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
+
 import logo from "../assets/logoipsum.svg";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/types";
 
 export const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const cart = useSelector((state: RootState) => state.cart);
 
   return (
     <header className="bg-[#27984c] p-2 flex justify-between items-center">
@@ -13,12 +17,20 @@ export const Header = () => {
         <img src={logo} className="w-10" alt="Logo Flores de Papel" />
         <span className="ml-2">Flores de Papel</span>
       </div>
+      {/* <div className="flex bg-white items-center p-2 ">
+        <input
+          type="search"
+          placeholder="❊ Pesquisar..."
+          className="outline-none bg-transparent px-2"
+        />
+        <FaSearch className="text-[#27984c]" />
+      </div> */}
 
       <nav className="flex gap-4 px-4">
         <Link to="/cart" className="relative">
           <FaCartShopping className="text-white w-6 h-6" />
           <div className="absolute top-0 right-0 bg-teal-400 text-white rounded-full text-xs font-bold w-4 h-4 flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
-            1
+            {cart.items.length}
           </div>
         </Link>
 
