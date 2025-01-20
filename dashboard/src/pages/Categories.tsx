@@ -4,11 +4,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CategoryTable from "../components/CategoryTable";
+import { FaPlusCircle } from "react-icons/fa";
 
 export const Categories = () => {
   const queryClient = useQueryClient();
   // Mutação com React Query
-  const { mutate } = useMutation({
+  const { mutate, status } = useMutation({
     mutationFn: ({ name }: { name: string }) => {
       return createCategory({ name });
     },
@@ -34,40 +35,47 @@ export const Categories = () => {
     mutate({ name });
   };
 
-  return (
-    <main className="flex flex-col gap-20 bg-slate-200 w-full h-full">
-      <section className="h-[9.6vh] flex items-center text-2xl font-semibold pl-2 text-slate-600 border-b-2 border-gray-300">
-        <h1>Categoria</h1>
-      </section>
+  const isLoading = status === "pending";
 
-      <section className="border-2 border-slate-400 h-[12vh] bg-purple-200">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-4 p-4"
+  return (
+    <main className="w-full flex flex-col justify-evenly items-center h-screen">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 items-end w-2/4"
+      >
+        <button
+          type="submit"
+          className="flex items-center gap-2 text-[#27984c] hover:bg-[#27984c] hover:text-white font-medium border border-[#27984c] p-2"
         >
-          <label htmlFor="name">Nome:</label>
+          <FaPlusCircle />
+          {isLoading ? "Salvando..." : "Adicionar Categoria"}
+        </button>
+        <section className="bg-slate-100 rounded-md p-2 w-[40%]">
+          <legend className="text-sm font-medium text-slate-800">
+            Categoria
+          </legend>
+          <label
+            htmlFor="name"
+            className="block text-sm/6 font-light text-gray-900"
+          >
+            Nome:
+          </label>
           <input
             id="name"
             type="text"
-            placeholder="Escreva o nome da categoria"
-            className="outline-none border-b-2 border-gray-200"
-            {...register("name")} // Associando o campo 'name' com o 'register'
+            placeholder="Escreva o nome do produto"
+            className="outline-none bg-zinc-200 w-full h-[6vh] text-sm font-light text-gray-900 p-2"
+            {...register("name")}
           />
+
           {/* Exibindo erros de validação, se houver */}
           {errors.name && (
             <span className="text-red-500">{errors.name.message}</span>
           )}
+        </section>
+      </form>
 
-          <button
-            type="submit" // Definindo o botão como 'submit' para disparar a ação de envio
-            className="bg-sky-200 p-2"
-          >
-            Criar
-          </button>
-        </form>
-      </section>
-
-      <section>
+      <section className="">
         <CategoryTable />
       </section>
     </main>

@@ -18,7 +18,7 @@ interface Category {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#27984c",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -67,13 +67,12 @@ const CategoriesTable = () => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="tabela personalizada">
+      <Table sx={{ minWidth: 520 }} aria-label="tabela personalizada">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>
-            <StyledTableCell align="right">Descrição</StyledTableCell>
-            <StyledTableCell align="right">Detalhes</StyledTableCell>
-            <StyledTableCell align="right">Ações</StyledTableCell>
+
+            <StyledTableCell align="center">Ações</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -86,7 +85,10 @@ const CategoriesTable = () => {
                 </StyledTableCell>
 
                 <StyledTableCell align="right">
-                  <button onClick={() => handleDelete(category._id)}>
+                  <button
+                    onClick={() => handleDelete(category._id)}
+                    className="text-red-500 border-2 border-red-500 hover:bg-red-500 hover:text-white font-semibold p-2"
+                  >
                     Deletar
                   </button>
                 </StyledTableCell>

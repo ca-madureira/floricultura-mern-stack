@@ -4,6 +4,7 @@ import { Sidebar } from "./components/Sidebar";
 
 import { Categories } from "./pages/Categories";
 import { Products } from "./pages/Products";
+import { Home } from "./pages/Home";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -13,11 +14,15 @@ function App() {
 
       children: [
         {
+          path: "/",
+          element: <Home />,
+        },
+        {
           path: "categories",
           element: <Categories />,
         },
         {
-          path: "create-product",
+          path: "products",
           element: <Products />,
         },
       ],

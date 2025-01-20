@@ -22,7 +22,7 @@ interface Product {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#27984c",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -67,16 +67,20 @@ const ProductTable = () => {
   }
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="tabela personalizada">
+    <TableContainer
+      component={Paper}
+      className="mt-12" // Remover o scroll e a altura máxima
+    >
+      <Table sx={{ minWidth: 850 }} aria-label="tabela personalizada">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>
-            <StyledTableCell align="right">Descrição</StyledTableCell>
-            <StyledTableCell align="right">Categoria</StyledTableCell>
-            <StyledTableCell align="right">Preço</StyledTableCell>
-            <StyledTableCell align="right">Estoque</StyledTableCell>
-            <StyledTableCell align="right">Imagem</StyledTableCell>
+            <StyledTableCell align="center">Descrição</StyledTableCell>
+            <StyledTableCell align="center">Categoria</StyledTableCell>
+            <StyledTableCell align="center">Preço</StyledTableCell>
+            <StyledTableCell align="center">Estoque</StyledTableCell>
+            <StyledTableCell align="center">Imagem</StyledTableCell>
+            <StyledTableCell align="center">Ações</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -99,15 +103,17 @@ const ProductTable = () => {
                   {product.stock}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  {/* Exibindo a imagem usando a URL do Cloudinary */}
                   <img
-                    src={product.image} // URL da imagem armazenada no Cloudinary
+                    src={product.image}
                     alt={product.title}
-                    style={{ width: "100px", height: "auto" }} // Estilizando a imagem
+                    style={{ width: "100px", height: "auto" }}
                   />
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  <button onClick={() => handleDelete(product._id)}>
+                  <button
+                    onClick={() => handleDelete(product._id)}
+                    className="text-red-500 border-2 border-red-500 hover:bg-red-500 hover:text-white font-semibold p-2"
+                  >
                     Deletar
                   </button>
                 </StyledTableCell>
