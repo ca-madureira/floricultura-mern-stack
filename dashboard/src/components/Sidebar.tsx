@@ -1,31 +1,43 @@
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import logo from "../assets/logo.svg";
+import { FaRegNewspaper, FaRegListAlt } from "react-icons/fa"; // Ícones de exemplo
 
 export const Sidebar = () => {
   return (
     <div className="flex w-full">
-      {/* <div className="w-1/6"> */}
-      <aside className="bg-zinc-100 w-[20%] h-screen fixed top-0 left-0">
-        <div className="text-center p-4 text-lg text-slate-500 font-bold">
-          Dashboard
+      <aside className="bg-[#27984c] w-[12%] md:w-[20%] h-screen fixed top-0 left-0">
+        <div className="flex items-center gap-2 text-center p-4 text-lg text-white font-bold">
+          <img src={logo} alt="Logo" className="w-12" />
+          {/* Título visível em telas maiores */}
+          <span className="text-sm md:text-lg hidden md:block hover:block">
+            Flores de Papel
+          </span>
         </div>
         <hr className="w-full border-b-1 border-green-200" />
-        <nav className="text-center text-slate-500">
+        <nav className="text-center text-white">
           <ul>
-            <li className="m-2 p-2 hover:bg-green-300 hover:text-slate-800 font-medium hover:rounded-md cursor-pointer text-sm">
-              <Link to="/categories">Categorias</Link>
+            {/* Menu de Categorias com Link */}
+            <li className="flex items-center gap-2 m-2 p-2 hover:bg-green-300 hover:text-slate-800 font-medium hover:rounded-md cursor-pointer">
+              <Link to="/categories" className="flex items-center gap-2">
+                <FaRegListAlt />
+                <span className="hidden md:block">Categorias</span>
+              </Link>
             </li>
 
-            <li className="m-2 p-2 hover:bg-green-300 hover:text-slate-800 font-medium hover:rounded-md cursor-pointer text-sm">
-              <Link to="/products">Produtos</Link>
+            {/* Menu de Produtos com Link */}
+            <li className="flex items-center gap-2 m-2 p-2 hover:bg-green-300 hover:text-slate-800 font-medium hover:rounded-md cursor-pointer">
+              <Link to="/products" className="flex items-center gap-2">
+                <FaRegNewspaper />
+                <span className="hidden md:block ">Produtos</span>
+              </Link>
             </li>
           </ul>
         </nav>
       </aside>
-      {/* </div> */}
 
       {/* Conteúdo principal ajustado para não ficar atrás da sidebar */}
-      <div className="ml-[20%] w-[80%]">
+      <div className="ml-[12%] w-full">
         <Outlet />
       </div>
     </div>
