@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineAlternateEmail } from "react-icons/md";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { RiLockPasswordLine, RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
 
 import signupImage from "../../assets/signup_login.svg";
 import { signup } from "../../services/users";
 import { registerSchema } from "../../schemas/userSchema";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -57,14 +58,18 @@ export const Register = () => {
     mutate(data);
   };
 
+  // Estado para controlar a visibilidade das senhas
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
   return (
     <section className="flex justify-center h-screen md:items-start ">
       <section className="relative w-1/2 flex flex-col hidden md:block ">
         <section className="">
-          <h1 className="text-2xl text-[#27984c] font-bold my-4">
+          <h1 className="text-2xl text-center text-[#27984c] font-bold my-4">
             Faça seu cadastro e conheça nossa papelaria
           </h1>
-          <p className="text-lg text-gray-400 font-light  my-4">
+          <p className="text-lg text-center text-gray-400 font-light  my-4">
             Os melhores preços estão aqui!
           </p>
         </section>
@@ -132,7 +137,7 @@ export const Register = () => {
 
             <div className="relative">
               <input
-                type="password"
+                type={passwordVisible ? "text" : "password"} // Tipo dinâmico para visibilidade da senha
                 placeholder="Senha"
                 {...register("password", {
                   required: {
@@ -152,11 +157,22 @@ export const Register = () => {
                 </p>
               )}
               <RiLockPasswordLine className="absolute left-2 top-4 w-5 h-5 text-gray-400" />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible(!passwordVisible)} // Alterna o estado da visibilidade
+                className="absolute right-2 top-4"
+              >
+                {passwordVisible ? (
+                  <RiEyeOffLine className="w-5 h-5 text-gray-400" />
+                ) : (
+                  <RiEyeLine className="w-5 h-5 text-gray-400" />
+                )}
+              </button>
             </div>
 
             <div className="relative">
               <input
-                type="password"
+                type={confirmPasswordVisible ? "text" : "password"} // Tipo dinâmico para visibilidade da confirmação de senha
                 {...register("confirmPassword", {
                   required: {
                     value: true,
@@ -177,6 +193,19 @@ export const Register = () => {
                 </p>
               )}
               <RiLockPasswordLine className="absolute left-2 top-4 w-5 h-5 text-gray-400" />
+              <button
+                type="button"
+                onClick={() =>
+                  setConfirmPasswordVisible(!confirmPasswordVisible)
+                } // Alterna o estado da visibilidade
+                className="absolute right-2 top-4"
+              >
+                {confirmPasswordVisible ? (
+                  <RiEyeOffLine className="w-5 h-5 text-gray-400" />
+                ) : (
+                  <RiEyeLine className="w-5 h-5 text-gray-400" />
+                )}
+              </button>
             </div>
 
             <p className="mt-2 text-sm text-slate-600">

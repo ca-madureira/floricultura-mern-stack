@@ -2,6 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true, // Isso garante que os cookies sejam enviados nas requisições
 });
 
 interface SignupData {
@@ -32,16 +33,10 @@ export const signup = async ({ name, email, password }: SignupData) => {
 
 export const login = async ({ email, password }: LoginData) => {
   try {
-    const { data } = await axios.post(
-      "/users/login",
-      {
-        email,
-        password,
-      },
-      {
-        withCredentials: true, // Adicione isso aqui para enviar cookies
-      }
-    );
+    const { data } = await api.post("users/login", {
+      email,
+      password,
+    });
     console.log("Login data:", data);
 
     return data;

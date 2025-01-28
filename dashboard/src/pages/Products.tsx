@@ -107,17 +107,17 @@ export const Products = () => {
   const isLoading = status === "pending";
 
   return (
-    <main className="flex flex-col ">
+    <main className="flex flex-col">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full ">
         <button
           type="submit"
-          className="flex items-center self-end w-[18%] gap-2 text-[#27984c] hover:bg-[#27984c] hover:text-white font-medium mr-[8%] mt-6 border border-[#27984c] p-2 "
+          className="flex items-center md:self-end md:w-[18%] w-[82%] ml-2 gap-2 text-[#27984c] hover:bg-[#27984c] hover:text-white font-medium mr-[8%] mt-6 border border-[#27984c] p-2"
         >
           <FaPlusCircle />
           {isLoading ? "Salvando..." : "Adicionar Produto"}
         </button>
-        <section className="flex justify-evenly">
-          <section className="bg-slate-100 rounded-md mt-10 p-4 w-2/4">
+        <section className="flex flex-col md:flex-row justify-evenly">
+          <section className="bg-slate-100 rounded-md mx-2 md:mx-20 mt-10 p-4 w-[82%] md:w-2/4">
             <legend className="text-sm font-medium text-slate-800">
               Informações gerais
             </legend>
@@ -165,7 +165,7 @@ export const Products = () => {
             <select
               id="category"
               {...register("category")}
-              className="outline-none bg-zinc-200 w-[10vw] h-[6vh] text-sm font-light text-gray-900 p-2"
+              className="outline-none bg-zinc-200 w-[40vw] md:w-[10vw] h-[6vh] text-sm font-light text-gray-900 p-2"
             >
               <option value="">Selecione</option>
               {data?.map((category) => (
@@ -186,7 +186,7 @@ export const Products = () => {
                   Preço:
                 </label>
 
-                <div className="flex items-center bg-zinc-200 pl-3 outline-gray-300 w-[6vw]">
+                <div className="flex items-center bg-zinc-200 pl-3 outline-gray-300 w-[30vw] md:w-[6vw]">
                   <div className="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">
                     R$
                   </div>
@@ -216,7 +216,7 @@ export const Products = () => {
                   id="stock"
                   type="number"
                   placeholder="0"
-                  className="outline-none bg-zinc-200 w-[6vw] h-[6vh] text-sm text-center font-light text-gray-900 p-2"
+                  className="outline-none bg-zinc-200 w-[30vw] md:w-[6vw] h-[6vh] text-sm text-center font-light text-gray-900 p-2"
                   {...register("stock", {
                     setValueAs: (value) => parseInt(value.toString(), 10),
                   })}
@@ -228,7 +228,7 @@ export const Products = () => {
             </div>
           </section>
 
-          <section className="flex flex-col justify-between bg-slate-100 rounded-md mt-10 p-4 w-1/4">
+          <section className="flex flex-col gap-2 mx-4 justify-between bg-slate-100 rounded-md mt-10 p-4 w-[80%] md:w-1/4">
             {errors.image && (
               <span className="text-red-500">{errors.image.message}</span>
             )}
@@ -265,7 +265,7 @@ export const Products = () => {
           </section>
         </section>
       </form>
-      <div className="flex self-center">
+      <div className="flex self-center w-[75%] md:w-full">
         <ProductTable />
       </div>
     </main>

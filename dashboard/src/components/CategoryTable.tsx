@@ -67,7 +67,7 @@ const CategoriesTable = () => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 520 }} aria-label="tabela personalizada">
+      <Table sx={{ minWidth: 120 }} aria-label="tabela personalizada">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>

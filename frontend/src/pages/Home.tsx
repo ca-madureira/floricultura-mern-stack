@@ -1,14 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAllProducts } from "../services/products";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../store/cart-slice";
-import { useSelector } from "react-redux";
-import { RootState } from "../store/types";
+import { useQuery } from "@tanstack/react-query"; // Para gerenciar dados assíncronos e cache
+import { getAllProducts } from "../services/products"; // Função para buscar os produtos
+import { useState } from "react"; // Hook do React para gerenciar estado
+import { useDispatch } from "react-redux"; // Hook para despachar ações para o Redux
+import { addToCart } from "../store/cart-slice"; // Ação para adicionar produtos ao carrinho
+// import { useSelector } from "react-redux"; // Hook para acessar o estado do Redux
+// import { RootState } from "../store/types"; // Tipagem do estado global do Redux
 
 export const Home = () => {
-  const cart = useSelector((state: RootState) => state.cart);
-  const [cont, setCont] = useState(1);
+  // const cart = useSelector((state: RootState) => state.cart);
+  const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
+  const [loadingProductId, setLoadingProductId] = useState<string | null>(null); // Estado de carregamento
   const dispatch = useDispatch();
 
   interface Product {
@@ -34,43 +35,86 @@ export const Home = () => {
     return <div>Erro ao carregar produtos!</div>;
   }
 
-  const addProductToCart = (product: Product) => {
-    const { _id, title, price, image } = product;
-    // Corrigir para passar id em vez de _id
-    dispatch(addToCart({ id: _id, name: title, price, image, quantity: cont }));
+  const handleQuantityChange = (
+    productId: string,
+    operation: "increment" | "decrement"
+  ) => {
+    setQuantities((prevQuantities) => {
+      const currentQuantity = prevQuantities[productId] || 1;
+      const newQuantity =
+        operation === "increment"
+          ? currentQuantity + 1
+          : Math.max(1, currentQuantity - 1);
+      return { ...prevQuantities, [productId]: newQuantity };
+    });
   };
 
-  console.log(cart);
+  const addProductToCart = (product: Product) => {
+    const { _id, title, description, price, image } = product;
+    const quantity = quantities[_id] || 1; // Se não houver quantidade definida, assume 1
+
+    // Marcar o produto como sendo adicionado
+    setLoadingProductId(_id);
+
+    dispatch(
+      addToCart({
+        id: _id,
+        name: title,
+        description: description,
+        price,
+        image,
+        quantity,
+      })
+    );
+
+    // Após adicionar o produto ao carrinho, resetar o estado de carregamento
+    setTimeout(() => {
+      setLoadingProductId(null); // Reseta o estado após um tempo, simulando a "finalização" do processo
+    }, 500); // Ajuste o tempo conforme necessário
+  };
 
   return (
-    <main>
+    <main className="flex flex-wrap gap-6">
       {data?.map((product: Product) => (
-        <div key={product._id}>
-          <div>
-            <p>{product.title}</p>
-            <p>{product.price}</p>
+        <section
+          key={product._id}
+          className="bg-white shadow-sm border-1 w-fit p-4 flex flex-col gap-2 mt-2"
+        >
+          <div className="flex flex-col items-center">
+            <img
+              src={product.image}
+              className="w-32 h-28"
+              alt={product.title}
+            />
+            <p className="font-semibold">{product.title}</p>
+            <p className="font-bold text-sm text-slate-600">
+              R${product.price},00
+            </p>
+            <div className="flex gap-1">
+              <button
+                onClick={() => handleQuantityChange(product._id, "decrement")}
+                className="bg-teal-400 rounded-md px-2 font-semibold"
+              >
+                -
+              </button>
+              {quantities[product._id] || 1}
+              <button
+                onClick={() => handleQuantityChange(product._id, "increment")}
+                className="bg-teal-400 rounded-md px-2"
+              >
+                +
+              </button>
+            </div>
           </div>
-          <div>
-            Quantidade:
-            <button
-              onClick={() =>
-                setCont((prevCont) => (prevCont > 1 ? prevCont - 1 : prevCont))
-              }
-            >
-              -
-            </button>
-            {cont}
-            <button onClick={() => setCont((prevCont) => prevCont + 1)}>
-              +
-            </button>
-          </div>
+
           <button
-            className="bg-purple-500"
-            onClick={() => addProductToCart(product)} // Correção: Passar função de callback
+            className="bg-[#27984c] p-2 text-white font-semibold"
+            onClick={() => addProductToCart(product)}
+            disabled={loadingProductId === product._id} // Desabilita o botão enquanto o produto está sendo adicionado
           >
-            Adicionar ao carrinho
+            {loadingProductId === product._id ? "Adicionando..." : "Adicionar"}
           </button>
-        </div>
+        </section>
       ))}
     </main>
   );

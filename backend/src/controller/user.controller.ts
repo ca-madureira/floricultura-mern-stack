@@ -15,10 +15,13 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await loginUser(req.body)
 
-    res.cookie('jwt-user', user.token, {
-      maxAge: 15 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      sameSite: 'strict',
+    console.log('fiz o login', user.token)
+
+    res.cookie('token', user.token, {
+      maxAge: 15 * 24 * 60 * 60 * 1000, // 15 dias
+      httpOnly: true, // Impede o acesso via JS no navegador
+      sameSite: 'lax',
+      secure: false, // Altere para 'true' em produção (com HTTPS)
     })
 
     res.status(200).json(user)

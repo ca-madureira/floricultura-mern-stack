@@ -69,9 +69,9 @@ const ProductTable = () => {
   return (
     <TableContainer
       component={Paper}
-      className="mt-12" // Remover o scroll e a altura máxima
+      className="mt-6" // Remover o scroll e a altura máxima
     >
-      <Table sx={{ minWidth: 850 }} aria-label="tabela personalizada">
+      <Table sx={{ minWidth: 750 }} aria-label="tabela personalizada">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>

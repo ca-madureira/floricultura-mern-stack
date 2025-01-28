@@ -1,5 +1,4 @@
 import express from 'express'
-
 export const productRouter = express.Router()
 
 import {
@@ -10,4 +9,5 @@ import {
 
 productRouter.post('/create', createProduct)
 productRouter.get('/', getAllProducts)
+
 productRouter.delete('/:id', deleteProductById)

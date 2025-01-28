@@ -8,7 +8,9 @@ import { Navigate } from "react-router-dom";
 import MainLayout from "./components/MainLayout";
 import { Home } from "./pages/Home";
 import { Cart } from "./pages/Cart";
+import { OrderPage } from "./pages/Order";
 
+// Componente para rotas protegidas
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   if (!isAuthenticated) {
@@ -18,6 +20,7 @@ const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   return children;
 };
 
+// Componente para rotas onde usuários autenticados não devem acessar
 const AuthenticatedUser = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
@@ -31,19 +34,27 @@ const AuthenticatedUser = ({ children }: { children: React.ReactNode }) => {
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <ProtectedRoutes>
-        <MainLayout />
-      </ProtectedRoutes>
-    ),
+    element: <MainLayout />, // MainLayout aparece apenas nas rotas de dentro
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Home />, // Home não exige autenticação
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element: (
+          <ProtectedRoutes>
+            <Cart /> {/* Cart só pode ser acessado se estiver logado */}
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/order-success",
+        element: (
+          <ProtectedRoutes>
+            <OrderPage /> {/* Cart só pode ser acessado se estiver logado */}
+          </ProtectedRoutes>
+        ),
       },
     ],
   },
@@ -51,7 +62,7 @@ const appRouter = createBrowserRouter([
     path: "/login",
     element: (
       <AuthenticatedUser>
-        <LoginPage />
+        <LoginPage /> {/* LoginPage não usa o MainLayout */}
       </AuthenticatedUser>
     ),
   },
@@ -59,7 +70,7 @@ const appRouter = createBrowserRouter([
     path: "/signup",
     element: (
       <AuthenticatedUser>
-        <RegisterPage />
+        <RegisterPage /> {/* RegisterPage também não usa o MainLayout */}
       </AuthenticatedUser>
     ),
   },
