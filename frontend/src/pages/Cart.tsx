@@ -20,6 +20,7 @@ export const Cart = () => {
     mutationFn: (orderData: {
       items: { product: string; quantity: number }[];
       total: number;
+      userId: string; // Adicionando o campo userId ao objeto
     }) => {
       return createOrder(orderData); // Chama o serviço de criação de pedidos
     },
@@ -41,15 +42,21 @@ export const Cart = () => {
   };
 
   const handleFinalizeOrder = () => {
+    // Obtendo o ID do usuário do localStorage
+    const account = JSON.parse(localStorage.getItem("account") || "{}");
+    const userId = account.user?._id || ""; // Acessando o _id dentro de user, se existir
+
     const orderData = {
       items: cart.items.map((item) => ({
         product: item.id,
         quantity: item.quantity,
       })),
       total: cart.total, // Usando 'total' ao invés de 'totalAmount'
+      userId: userId, // Incluindo o ID do usuário no pedido
     };
 
-    createOrderMutation(orderData); // Chama a mutação para criar o pedido
+    // Passando o orderData diretamente sem envolver em um objeto extra
+    createOrderMutation(orderData); // Chamando a mutação para criar o pedido
   };
 
   const isLoading = status === "pending";

@@ -65,6 +65,22 @@ export const Products = () => {
     },
   });
 
+  function maskCurrency(value: string | number) {
+    const locale = "pt-BR";
+    const options: Intl.NumberFormatOptions = {
+      style: "currency",
+      currency: "BRL",
+      currencyDisplay: "symbol",
+      minimumFractionDigits: 2,
+    };
+
+    const currency_value = parseFloat(`${value}`.replace(/[^\d]/g, "")) / 100;
+
+    return currency_value
+      ? new Intl.NumberFormat(locale, options).format(currency_value)
+      : "";
+  }
+
   const inputFileRef = useRef<HTMLInputElement | null>(null); // Ref para o input de arquivo
 
   // Função para lidar com o upload da imagem
@@ -187,18 +203,22 @@ export const Products = () => {
                 </label>
 
                 <div className="flex items-center bg-zinc-200 pl-3 outline-gray-300 w-[30vw] md:w-[6vw]">
-                  <div className="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">
-                    R$
-                  </div>
                   <input
                     id="price"
-                    type="text"
-                    placeholder="0.00"
+                    type="tel"
+                    placeholder="R$ X,XXX.XX"
                     className="outline-none bg-zinc-200 w-full h-[6vh] text-sm font-light text-gray-900"
-                    {...register("price", {
-                      setValueAs: (value) =>
-                        parseFloat(value.toString().replace(",", ".")),
-                    })}
+                    {...register("price")}
+                    onChange={(e) => {
+                      const value = e.target.value;
+
+                      const numericValue =
+                        parseFloat(value.replace(/[^\d]/g, "")) / 100;
+
+                      setValue("price", numericValue, { shouldValidate: true });
+
+                      e.target.value = maskCurrency(numericValue);
+                    }}
                   />
                 </div>
                 {errors.price && (

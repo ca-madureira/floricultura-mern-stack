@@ -1,67 +1,53 @@
-import axios from "axios";
-import Cookies from "js-cookie"; // Importando js-cookie para ler os cookies
+import axios, { AxiosResponse } from "axios";
+import apiClient from "./apiClient";
 
-// Criando uma instância do axios com base na URL da API
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // URL base da API
-});
+interface OrderItem {
+  product: string;
+  quantity: number;
+}
 
-// Interceptor para adicionar o token de autenticação nas requisições
-api.interceptors.request.use(
-  (config) => {
-    // Pegando o token do cookie 'jwt-user'
-    const token = Cookies.get("jwt-user"); // Lê o token diretamente do cookie
-
-    // Se o token existir, adiciona no cabeçalho Authorization
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
-
-// Função para criar um pedido
-export const createOrder = async (orderData: {
-  items: {
-    product: string;
-    quantity: number;
-  }[];
+interface OrderData {
+  items: OrderItem[];
   total: number;
-}) => {
+  userId: string; // Incluindo o userId aqui para ser consistente com o que você precisa passar
+}
+
+export const createOrder = async (orderData: OrderData) => {
+  // A função espera um objeto OrderData
   try {
-    const response = await api.post("/orders/create", orderData); // Envia a requisição com o token no cabeçalho
-    return response.data; // Retorna os dados da resposta
+    const { data }: AxiosResponse<OrderData> = await apiClient.post(
+      "/orders/create",
+      orderData
+    );
+
+    return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error(
-        "Erro ao criar pedido:",
-        error.response?.data || error.message
-      );
-    } else {
-      console.error("Erro desconhecido:", error);
+      if (error.response) {
+        const errorMessage = error.response.data?.message;
+        if (error.response.status === 401) {
+          if (errorMessage === "Sessão expirada") {
+            throw new Error("Sessão expirada.");
+          } else {
+            throw new Error(errorMessage || "Token inválido.");
+          }
+        }
+        throw new Error(errorMessage || "Erro na requisição");
+      }
+      throw new Error("Erro desconhecido na requisição");
     }
-    throw new Error("Erro ao criar o pedido");
+    throw error;
   }
 };
 
-// Função para obter todos os pedidos
-export const getOrders = async () => {
+// Atualizando a função para aceitar userId
+export const getAllOrder = async (userId: string) => {
   try {
-    const response = await api.get("/orders/all"); // Envia a requisição com o token no cabeçalho
-    return response.data; // Retorna os dados da resposta
+    // Passando o userId na URL para filtrar os pedidos do usuário
+    const { data } = await apiClient.get(`/orders/${userId}`);
+    return data;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error(
-        "Erro ao buscar pedidos:",
-        error.response?.data || error.message
-      );
-    } else {
-      console.error("Erro desconhecido:", error);
-    }
-    throw new Error("Erro ao buscar os pedidos");
+    console.log(error);
+    throw new Error("Ocorreu um erro ao retornar pedidos");
   }
 };
