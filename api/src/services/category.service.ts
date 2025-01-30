@@ -42,6 +42,23 @@ export const getAllCategoriesService = async () => {
   }
 };
 
+// Função no backend - editar categoria
+export const editCategoryByIdService = async (
+  id: string,
+  data: CategoryData
+) => {
+  try {
+    // Corrigido o uso do findByIdAndUpdate
+    const category = await Category.findByIdAndUpdate(id, data, {
+      new: true, // Retorna a categoria atualizada
+    });
+    return category;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Erro ao editar categoria");
+  }
+};
+
 export const deleteCategoryByIdService = async (data: CategoryId) => {
   try {
     const { _id } = data;

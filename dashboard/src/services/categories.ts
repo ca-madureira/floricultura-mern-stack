@@ -27,6 +27,22 @@ export const getAllCategories = async () => {
   }
 };
 
+export const editCategoryById = async ({
+  id,
+  name,
+}: {
+  id: string;
+  name: string;
+}) => {
+  try {
+    const { data } = await api.put(`/categories/${id}`, { name }); // Passando o nome como um objeto
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Ocorreu um erro ao editar categorias");
+  }
+};
+
 export const deleteCategory = async (id: string) => {
   try {
     const { data } = await api.delete(`categories/${id}`);

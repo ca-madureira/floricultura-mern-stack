@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getAllCategories, deleteCategory } from "../services/categories"; // A função que retorna as categorias
+import { getAllCategories, deleteCategory } from "../services/categories"; // Funções que fazem chamadas ao backend
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -14,6 +14,11 @@ import Paper from "@mui/material/Paper";
 interface Category {
   _id: string; // Alterei para 'string' assumindo que você usa um identificador string no back-end
   name: string;
+}
+
+// Tipagem para as props do componente CategoryTable
+interface CategoryTableProps {
+  handleEdit: (category: { id: string; name: string }) => void;
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -35,11 +40,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const CategoriesTable = () => {
+const CategoriesTable: React.FC<CategoryTableProps> = ({ handleEdit }) => {
   const queryClient = useQueryClient();
 
   const deletePostMutation = useMutation<void, Error, string>({
-    mutationFn: deleteCategory, // A função de deleção
+    mutationFn: deleteCategory, // Função de deleção
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
@@ -51,10 +56,9 @@ const CategoriesTable = () => {
 
   const { data, isLoading, isError } = useQuery<Category[], Error>({
     queryKey: ["categories"], // A chave única para a query
-    queryFn: getAllCategories, // A função que obtém as categorias
+    queryFn: getAllCategories, // Função que obtém as categorias
   });
 
-  // Lidar com o carregamento e erro de forma condicional
   if (isLoading) {
     return <div>Carregando...</div>;
   }
@@ -63,27 +67,32 @@ const CategoriesTable = () => {
     return <div>Erro ao carregar categorias!</div>;
   }
 
-  // Aqui, tipamos o `useMutation` para esperar um `string` (id) e não retornar nada (void)
-
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 120 }} aria-label="tabela personalizada">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>
-
             <StyledTableCell align="center">Ações</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* Verificando se 'data' está disponível antes de mapear */}
           {data && data.length > 0 ? (
             data.map((category) => (
               <StyledTableRow key={category._id}>
                 <StyledTableCell component="th" scope="row">
                   {category.name}
                 </StyledTableCell>
-
+                <StyledTableCell align="right">
+                  <button
+                    onClick={() =>
+                      handleEdit({ id: category._id, name: category.name })
+                    }
+                    className="text-blue-500 border-2 border-blue-500 hover:bg-blue-500 hover:text-white font-semibold p-2"
+                  >
+                    Editar
+                  </button>
+                </StyledTableCell>
                 <StyledTableCell align="right">
                   <button
                     onClick={() => handleDelete(category._id)}
