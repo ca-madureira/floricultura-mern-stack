@@ -1,16 +1,20 @@
+// 1. Bibliotecas externas
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine, RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
-import signupImage from "../../assets/signup_login.svg";
+// 2. Módulos internos (serviços, estado, schemas, etc.)
 import { login } from "../../services/users";
 import { setLogin } from "../../store/auth-slice";
 import { loginSchema } from "../../schemas/userSchema";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+
+// 3. Imagens ou arquivos estáticos
+import signupImage from "../../assets/signup_login.svg";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -34,8 +38,6 @@ export const Login = () => {
     },
   });
 
-  console.log("storage", localStorage.getItem("account"));
-
   const {
     register,
     handleSubmit,
@@ -53,7 +55,6 @@ export const Login = () => {
     mutate(data);
   };
 
-  // Estado para controlar visibilidade da senha
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
@@ -63,14 +64,14 @@ export const Login = () => {
           <h1 className="text-2xl text-center text-[#27984c] font-bold my-4">
             Faça seu login e vamos às compras
           </h1>
-          <p className="text-lg text-center text-gray-400 font-light  my-4">
+          <p className="text-lg text-center text-gray-400 font-light my-4">
             Os melhores preços estão aqui!
           </p>
         </section>
         <img src={signupImage} className="w-full h-full object-cover" />
       </section>
 
-      <section className=" md:w-1/2 flex flex-col md:p-20 ">
+      <section className="md:w-1/2 flex flex-col md:p-20">
         <h1 className="text-lg text-[#060606] font-semibold"></h1>
         <section>
           <h3 className="text-2xl font-semibold mb-4 text-slate-600">Login</h3>

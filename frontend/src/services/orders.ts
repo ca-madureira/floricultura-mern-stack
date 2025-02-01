@@ -9,11 +9,10 @@ interface OrderItem {
 interface OrderData {
   items: OrderItem[];
   total: number;
-  userId: string; // Incluindo o userId aqui para ser consistente com o que você precisa passar
+  userId: string;
 }
 
 export const createOrder = async (orderData: OrderData) => {
-  // A função espera um objeto OrderData
   try {
     const { data }: AxiosResponse<OrderData> = await apiClient.post(
       "/orders/create",
@@ -40,10 +39,8 @@ export const createOrder = async (orderData: OrderData) => {
   }
 };
 
-// Atualizando a função para aceitar userId
 export const getAllOrder = async (userId: string) => {
   try {
-    // Passando o userId na URL para filtrar os pedidos do usuário
     const { data } = await apiClient.get(`/orders/${userId}`);
     return data;
   } catch (error) {

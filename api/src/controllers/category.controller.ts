@@ -39,15 +39,12 @@ export const editCategoryById = async (req: Request, res: Response) => {
 
 export const deleteCategoryById = async (req: Request, res: Response) => {
   try {
-    // Garantir que o ID está sendo passado corretamente
     const categoryId = req.params.id;
 
-    // Chamar o serviço para deletar a categoria
     const categoryDeleted = await deleteCategoryByIdService({
       _id: categoryId,
     });
 
-    // Retornar o documento deletado com um status 200
     res.status(200).json({
       message: "Categoria deletada com sucesso",
       category: categoryDeleted,

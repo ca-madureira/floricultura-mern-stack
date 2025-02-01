@@ -14,22 +14,12 @@ export const createProduct = async ({
 }: {
   title: string;
   description: string;
-  category: string;
+  category: { _id: string; name: string };
   price: number;
   stock: number;
   image: string | null;
 }) => {
   try {
-    // const formData = new FormData();
-    // formData.append("title", title);
-    // formData.append("description", description);
-    // formData.append("category", category);
-    // formData.append("price", price.toString());
-    // formData.append("stock", stock.toString());
-    // if (image) {
-    //   formData.append("image", image);
-    // }
-
     const { data } = await api.post("products/create", {
       title,
       description,
@@ -44,6 +34,27 @@ export const createProduct = async ({
     console.log(error);
     throw new Error("Ocorreu um erro ao criar o produto");
   }
+};
+
+export const updateProduct = async (product: {
+  id: string;
+  title: string;
+  description: string;
+  category: { _id: string; name: string };
+  price: number;
+  stock: number;
+  image: string | null;
+}) => {
+  const { data } = await api.put(`products/${product.id}`, {
+    title: product.title,
+    description: product.description,
+    category: product.category,
+    price: product.price,
+    stock: product.stock,
+    image: product.image,
+  });
+
+  return data;
 };
 
 export const getAllProducts = async () => {

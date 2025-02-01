@@ -1,15 +1,26 @@
+import { useState } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
 
-import logo from "../assets/logoipsum.svg";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
 import { RootState } from "../store/types";
+
+import logo from "../assets/logoipsum.svg";
+import { setLogout } from "../store/auth-slice";
 
 export const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const cart = useSelector((state: RootState) => state.cart);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(setLogout());
+    navigate("/login");
+  };
 
   return (
     <header className="bg-[#27984c] p-2 flex justify-between items-center">
@@ -17,14 +28,6 @@ export const Header = () => {
         <img src={logo} className="w-10" alt="Logo Flores de Papel" />
         <span className="ml-2">Flores de Papel</span>
       </div>
-      {/* <div className="flex bg-white items-center p-2 ">
-        <input
-          type="search"
-          placeholder="❊ Pesquisar..."
-          className="outline-none bg-transparent px-2"
-        />
-        <FaSearch className="text-[#27984c]" />
-      </div> */}
 
       <nav className="flex gap-4 px-4">
         <Link to="/cart" className="relative">
@@ -51,20 +54,7 @@ export const Header = () => {
             >
               <ul>
                 <li>
-                  <Link
-                    to="/login"
-                    className="block py-1 px-2 hover:bg-teal-200 rounded"
-                  >
-                    Login
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/signup"
-                    className="block py-1 px-2 hover:bg-teal-200 rounded"
-                  >
-                    Cadastro
-                  </Link>
+                  <button onClick={handleLogout}>Sair</button>
                 </li>
               </ul>
             </nav>

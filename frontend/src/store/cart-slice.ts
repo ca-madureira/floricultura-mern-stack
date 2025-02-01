@@ -14,11 +14,9 @@ export interface CartState {
   total: number;
 }
 
-// Carregar o estado do carrinho do localStorage, caso exista
 const storedCart = localStorage.getItem("cart");
 const storedTotal = localStorage.getItem("total");
 
-// Garantir que storedCart e storedTotal não sejam null antes de usá-los
 const initialState: CartState =
   storedCart && storedTotal
     ? {
@@ -45,13 +43,11 @@ const cartSlice = createSlice({
         state.items.push(action.payload);
       }
 
-      // Atualizar o total
       state.total = state.items.reduce(
         (acc, item) => acc + item.price * item.quantity,
         0
       );
 
-      // Salvar o estado no localStorage
       localStorage.setItem("cart", JSON.stringify(state.items));
       localStorage.setItem("total", JSON.stringify(state.total));
     },
@@ -63,7 +59,6 @@ const cartSlice = createSlice({
         0
       );
 
-      // Salvar o estado no localStorage
       localStorage.setItem("cart", JSON.stringify(state.items));
       localStorage.setItem("total", JSON.stringify(state.total));
     },
@@ -85,23 +80,12 @@ const cartSlice = createSlice({
         "JA VIREI O NOVO VALOR itemToUpdate.quantity",
         itemToUpdate?.quantity
       );
-      // if (itemToUpdate) {
-      //   if (operation === "increment") {
-      //     itemToUpdate.quantity += quantity;
-      //   } else {
-      //     itemToUpdate.quantity -= quantity;
-      //   }
-      // }
-
-      console.log("DEPOIS DA MUDANCA", itemToUpdate?.quantity);
-      console.log("VALOR QUE ACABOU DE CHEGAR", quantity);
 
       state.total = state.items.reduce(
         (acc, item) => acc + item.price * item.quantity,
         0
       );
-      console.log(state.items);
-      // Salvar o estado no localStorage
+
       localStorage.setItem("cart", JSON.stringify(state.items));
       localStorage.setItem("total", JSON.stringify(state.total));
     },
@@ -109,7 +93,6 @@ const cartSlice = createSlice({
       state.items = [];
       state.total = 0;
 
-      // Limpar o localStorage
       localStorage.removeItem("cart");
       localStorage.removeItem("total");
     },

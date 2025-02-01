@@ -1,11 +1,12 @@
-import { categorySchema } from "../schemas/categorySchema";
-import { createCategory, editCategoryById } from "../services/categories"; // Adiciona o editCategoryById
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import CategoryTable from "../components/CategoryTable"; // Importando o componente CategoryTable
 import { FaPlusCircle } from "react-icons/fa";
 import { useState } from "react";
+
+import { categorySchema } from "../schemas/categorySchema";
+import { createCategory, editCategoryById } from "../services/categories";
+import CategoryTable from "../components/CategoryTable";
 
 export const Categories = () => {
   const queryClient = useQueryClient();
@@ -14,7 +15,6 @@ export const Categories = () => {
     name: string;
   }>(null);
 
-  // Mutação para criar categoria
   const { mutate: createMutate, status: createStatus } = useMutation({
     mutationFn: ({ name }: { name: string }) => {
       return createCategory({ name });
@@ -34,34 +34,29 @@ export const Categories = () => {
     },
   });
 
-  // Hook do formulário
   const {
     register,
     handleSubmit,
-    setValue, // Usado para preencher os campos do formulário com os dados da categoria que está sendo editada
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(categorySchema),
     defaultValues: {
-      name: "", // Valor inicial para o campo 'name'
+      name: "",
     },
   });
 
-  // Função de submissão do formulário
   const onSubmit = ({ name }: { name: string }) => {
     if (editingCategory) {
-      // Se estiver editando, chamamos a mutação de edição
       editMutate({ id: editingCategory.id, name });
     } else {
-      // Se não estiver editando, chamamos a mutação de criação
       createMutate({ name });
     }
   };
 
-  // Função para iniciar a edição de uma categoria
   const handleEdit = (category: { id: string; name: string }) => {
     setEditingCategory(category);
-    setValue("name", category.name); // Preenche o campo de nome com o valor da categoria a ser editada
+    setValue("name", category.name);
   };
 
   const isLoading = createStatus === "pending" || editStatus === "pending";
@@ -74,7 +69,7 @@ export const Categories = () => {
       >
         <button
           type="submit"
-          className="flex items-center gap-2 text-[#27984c] hover:bg-[#27984c] hover:text-white font-medium border border-[#27984c] p-2 w-full sm:w-auto"
+          className="flex items-center gap-2 text-[#27984c] bg-[#27984c] hover:bg-white hover:text-[#27984c] text-white font-medium border border-[#27984c] p-2 w-full sm:w-auto"
         >
           <FaPlusCircle />
           {isLoading
@@ -109,11 +104,8 @@ export const Categories = () => {
         </section>
       </form>
 
-      <section className="w-full md:w-[40%] mt-6 px-2 sm:px-0">
-        <div className="overflow-x-auto">
-          <CategoryTable handleEdit={handleEdit} />{" "}
-          {/* Passando a função de editar para a tabela */}
-        </div>
+      <section className="w-full md:w-[40%] mt-12">
+        <CategoryTable handleEdit={handleEdit} />{" "}
       </section>
     </main>
   );

@@ -1,15 +1,16 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
+import { FaRegUser } from "react-icons/fa";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine, RiEyeLine, RiEyeOffLine } from "react-icons/ri";
-import { FaRegUser } from "react-icons/fa";
 
-import signupImage from "../../assets/signup_login.svg";
 import { signup } from "../../services/users";
 import { registerSchema } from "../../schemas/userSchema";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
+import signupImage from "../../assets/signup_login.svg";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -58,7 +59,6 @@ export const Register = () => {
     mutate(data);
   };
 
-  // Estado para controlar a visibilidade das senhas
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
@@ -76,7 +76,7 @@ export const Register = () => {
         <img src={signupImage} className="w-full h-full object-cover" />
       </section>
 
-      <section className=" md:w-1/2 bg-[#f5f5f5] flex flex-col md:p-20">
+      <section className="md:w-1/2 bg-[#f5f5f5] flex flex-col md:p-20">
         <h1 className="text-lg text-[#060606] font-semibold"></h1>
         <section className="">
           <h3 className="text-2xl font-semibold mb-4 text-slate-600">
@@ -94,10 +94,7 @@ export const Register = () => {
                     value: 1,
                     message: "Nome deve conter ao menos 3 caracteres",
                   },
-                  required: {
-                    value: true,
-                    message: "Nome é obrigatorio",
-                  },
+                  required: { value: true, message: "Nome é obrigatorio" },
                 })}
                 placeholder="Insira seu nome"
                 className="w-full text-black py-2 my-2 pl-10 bg-transparent border-b border-black outline-none focus:outline-none"
@@ -120,10 +117,7 @@ export const Register = () => {
                       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     message: "Insira um email valido",
                   },
-                  required: {
-                    value: true,
-                    message: "Email é obrigatorio",
-                  },
+                  required: { value: true, message: "Email é obrigatorio" },
                 })}
                 className="w-full text-black py-2 my-2 pl-10 bg-transparent border-b border-black outline-none focus:outline-none"
               />
@@ -140,10 +134,7 @@ export const Register = () => {
                 type={passwordVisible ? "text" : "password"} // Tipo dinâmico para visibilidade da senha
                 placeholder="Senha"
                 {...register("password", {
-                  required: {
-                    value: true,
-                    message: "Senha é obrigatoria",
-                  },
+                  required: { value: true, message: "Senha é obrigatoria" },
                   minLength: {
                     value: 6,
                     message: "Senha deve contar ao menos 6 caracteres",

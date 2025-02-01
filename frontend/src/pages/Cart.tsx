@@ -1,15 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/types"; // Tipagem correta do RootState
+import { RootState } from "../store/types";
 import { removeItem, clearCart } from "../store/cart-slice";
-import CartTable from "../components/CartTable";
 import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { createOrder } from "../services/orders"; // Importando o serviço de pedidos
-import { useNavigate } from "react-router-dom"; // Usaremos o useNavigate para redirecionar após sucesso
+import { useNavigate } from "react-router-dom";
+
+import CartTable from "../components/CartTable";
+import { createOrder } from "../services/orders";
 
 export const Cart = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Para redirecionar após a finalização da compra
+  const navigate = useNavigate();
   const cart = useSelector((state: RootState) => state.cart);
 
   const {
@@ -20,50 +21,48 @@ export const Cart = () => {
     mutationFn: (orderData: {
       items: { product: string; quantity: number }[];
       total: number;
-      userId: string; // Adicionando o campo userId ao objeto
+      userId: string;
     }) => {
-      return createOrder(orderData); // Chama o serviço de criação de pedidos
+      return createOrder(orderData);
     },
     onSuccess: () => {
-      dispatch(clearCart()); // Limpa o carrinho após o pedido ser criado com sucesso
-      navigate("/order-success"); // Redireciona para a página de sucesso
+      dispatch(clearCart());
+      navigate("/order-success");
     },
     onError: (error) => {
-      console.error(error); // Exibe um erro caso a criação do pedido falhe
+      console.error(error);
     },
   });
 
   const handleRemoveItem = (id: string) => {
-    dispatch(removeItem(id)); // Chama o reducer para remover item do carrinho
+    dispatch(removeItem(id));
   };
 
   const handleClearCart = () => {
-    dispatch(clearCart()); // Limpa o carrinho
+    dispatch(clearCart());
   };
 
   const handleFinalizeOrder = () => {
-    // Obtendo o ID do usuário do localStorage
     const account = JSON.parse(localStorage.getItem("account") || "{}");
-    const userId = account.user?._id || ""; // Acessando o _id dentro de user, se existir
+    const userId = account.user?._id || "";
 
     const orderData = {
       items: cart.items.map((item) => ({
         product: item.id,
         quantity: item.quantity,
       })),
-      total: cart.total, // Usando 'total' ao invés de 'totalAmount'
-      userId: userId, // Incluindo o ID do usuário no pedido
+      total: cart.total,
+      userId: userId,
     };
 
-    // Passando o orderData diretamente sem envolver em um objeto extra
-    createOrderMutation(orderData); // Chamando a mutação para criar o pedido
+    createOrderMutation(orderData);
   };
 
   const isLoading = status === "pending";
 
   return (
     <section className="flex flex-col md:flex-row justify-evenly">
-      <div className="w-full md:w-1/2 flex flex-col items-end ">
+      <div className="w-full w-[55%] flex flex-col items-end ">
         <div className="flex w-full justify-between">
           <Link
             to="/"
@@ -88,8 +87,8 @@ export const Cart = () => {
           <span>R${cart.total}.00</span>
         </div>
         <button
-          onClick={handleFinalizeOrder} // Chamando a função para finalizar o pedido
-          disabled={isLoading} // Desativa o botão enquanto o pedido está sendo processado
+          onClick={handleFinalizeOrder}
+          disabled={isLoading}
           className="bg-[#27984c] text-white font-semibold rounded-md p-2"
         >
           {isLoading ? "Finalizando..." : "Finalizar compra"}

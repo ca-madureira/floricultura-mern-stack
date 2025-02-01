@@ -7,22 +7,22 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { getAllOrder } from "../services/orders"; // Seu serviço que faz a requisição à API
 
-// Tipagem para um produto e item no carrinho
+import { getAllOrder } from "../services/orders";
+
 interface CartItem {
   product: {
     _id: string;
-    title: string; // Supondo que você tenha a propriedade "name" no produto
-    price: number; // E também a propriedade "price"
+    title: string;
+    price: number;
   };
-  quantidade: number; // Quantidade do produto
+  quantity: number;
 }
 
 interface Order {
   orderNumber: string;
   totalAmount: number;
-  cartItems: CartItem[]; // Agora é um array de objetos com produto e quantidade
+  cartItems: CartItem[];
   status: string;
 }
 
@@ -46,15 +46,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const OrderTable = () => {
-  // Obtendo o ID do usuário do localStorage
   const account = JSON.parse(localStorage.getItem("account") || "{}");
-  const userId = account.user?._id || ""; // Acessando o _id dentro de user, se existir
+  const userId = account.user?._id || "";
 
-  // Usando useQuery para obter os pedidos do usuário
   const { data, isLoading, isError } = useQuery<Order[], Error>({
-    queryKey: ["orders", userId], // Definindo a chave de cache única para esse usuário
-    queryFn: () => getAllOrder(userId), // Passando o userId para a função de API
-    enabled: !!userId, // Apenas ativa a query se userId existir
+    queryKey: ["orders", userId],
+    queryFn: () => getAllOrder(userId),
+    enabled: !!userId,
   });
 
   if (isLoading) {
@@ -66,8 +64,12 @@ const OrderTable = () => {
   }
 
   return (
-    <TableContainer component={Paper} className="mt-6">
-      <Table sx={{ minWidth: 750 }} aria-label="tabela personalizada">
+    <TableContainer
+      component={Paper}
+      sx={{ maxHeight: 400, width: "100%" }}
+      className="mt-6"
+    >
+      <Table aria-label="tabela personalizada">
         <TableHead>
           <TableRow>
             <StyledTableCell>Numero do Pedido</StyledTableCell>
@@ -83,19 +85,19 @@ const OrderTable = () => {
                 <StyledTableCell component="th" scope="row">
                   {order.orderNumber}
                 </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
+                <StyledTableCell component="th" scope="row" align="center">
                   {order.totalAmount}
                 </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {order.status}
+                <StyledTableCell component="th" scope="row" align="center">
+                  <div className="rounded-md text-amber-600 text-sm font-semibold">
+                    {order.status}
+                  </div>
                 </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
+                <StyledTableCell component="th" scope="row" align="center">
                   <div>
-                    {/* Exibindo os itens do carrinho */}
                     {order.cartItems.map((item, index) => (
                       <div key={index} style={{ marginBottom: "8px" }}>
-                        <strong>{item.product.title}</strong> - Quantidade:{" "}
-                        {item.quantidade} - Preço: {item.product.price}
+                        {item.product?.title}-{item.quantity}
                       </div>
                     ))}
                   </div>

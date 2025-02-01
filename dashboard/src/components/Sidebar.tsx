@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import logo from "../assets/logo.svg";
-import { FaRegNewspaper, FaRegListAlt } from "react-icons/fa"; // Ícones de exemplo
+import { FaRegNewspaper, FaRegListAlt } from "react-icons/fa";
 
 export const Sidebar = () => {
   return (
@@ -9,7 +9,7 @@ export const Sidebar = () => {
       <aside className="bg-[#27984c] w-[12%] md:w-[20%] h-screen fixed top-0 left-0">
         <div className="flex items-center gap-2 text-center p-4 text-lg text-white font-bold">
           <img src={logo} alt="Logo" className="w-12" />
-          {/* Título visível em telas maiores */}
+
           <span className="text-sm md:text-lg hidden md:block hover:block">
             Flores de Papel
           </span>
@@ -17,7 +17,6 @@ export const Sidebar = () => {
         <hr className="w-full border-b-1 border-green-200" />
         <nav className="text-center text-white">
           <ul>
-            {/* Menu de Categorias com Link */}
             <li className="flex items-center gap-2 m-2 p-2 hover:bg-green-300 hover:text-slate-800 font-medium hover:rounded-md cursor-pointer">
               <Link to="/categories" className="flex items-center gap-2">
                 <FaRegListAlt />
@@ -25,7 +24,6 @@ export const Sidebar = () => {
               </Link>
             </li>
 
-            {/* Menu de Produtos com Link */}
             <li className="flex items-center gap-2 m-2 p-2 hover:bg-green-300 hover:text-slate-800 font-medium hover:rounded-md cursor-pointer">
               <Link to="/products" className="flex items-center gap-2">
                 <FaRegNewspaper />
@@ -36,7 +34,6 @@ export const Sidebar = () => {
         </nav>
       </aside>
 
-      {/* Conteúdo principal ajustado para não ficar atrás da sidebar */}
       <div className="ml-[12%] w-full">
         <Outlet />
       </div>

@@ -1,131 +1,88 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { styled } from "@mui/material/styles";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { getAllProducts, deleteProduct } from "../services/products";
+import { MdDeleteForever } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
-// Tipagem para um produto
 interface Product {
   _id: string;
   title: string;
   description: string;
-  category: { name: string };
+  category: { _id: string; name: string };
   price: number;
   stock: number;
-  image: string; // Assumindo que 'image' contém a URL completa da imagem
+  image: string;
 }
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#27984c",
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
+interface ProductTableProps {
+  handleEdit: (product: Product) => void;
+}
 
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  "&:last-child td, &:last-child th": {
-    border: 0,
-  },
-}));
-
-const ProductTable = () => {
+const ProductTable = ({ handleEdit }: ProductTableProps) => {
   const queryClient = useQueryClient();
 
-  const deletePostMutation = useMutation<void, Error, string>({
-    mutationFn: deleteProduct,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-  });
-
-  const handleDelete = (id: string) => {
-    deletePostMutation.mutate(id);
-  };
-
-  const { data, isLoading, isError } = useQuery<Product[], Error>({
+  const { data } = useQuery<Product[], Error>({
     queryKey: ["products"],
     queryFn: getAllProducts,
   });
 
-  if (isLoading) {
-    return <div>Carregando...</div>;
-  }
+  const { mutate } = useMutation({
+    mutationFn: deleteProduct,
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["products"] }),
+  });
 
-  if (isError) {
-    return <div>Erro ao carregar produtos!</div>;
-  }
+  const handleDelete = (id: string) => {
+    if (window.confirm("Você tem certeza que deseja excluir este produto?")) {
+      mutate(id);
+    }
+  };
 
   return (
-    <TableContainer
-      component={Paper}
-      className="mt-6" // Remover o scroll e a altura máxima
-    >
-      <Table sx={{ minWidth: 750 }} aria-label="tabela personalizada">
+    <TableContainer component={Paper} className="w-full">
+      <Table sx={{ minWidth: 650 }} aria-label="Tabela de Produtos">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Nome</StyledTableCell>
-            <StyledTableCell align="center">Descrição</StyledTableCell>
-            <StyledTableCell align="center">Categoria</StyledTableCell>
-            <StyledTableCell align="center">Preço</StyledTableCell>
-            <StyledTableCell align="center">Estoque</StyledTableCell>
-            <StyledTableCell align="center">Imagem</StyledTableCell>
-            <StyledTableCell align="center">Ações</StyledTableCell>
+            <TableCell align="left">Produto</TableCell>
+            <TableCell align="left">Categoria</TableCell>
+            <TableCell align="left">Preço</TableCell>
+            <TableCell align="left">Estoque</TableCell>
+            <TableCell align="left">Imagem</TableCell>
+            <TableCell align="center">Ações</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data && data.length > 0 ? (
-            data.map((product) => (
-              <StyledTableRow key={product._id}>
-                <StyledTableCell component="th" scope="row">
-                  {product.title}
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {product.description}
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {product.category.name}
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {product.price}
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  {product.stock}
-                </StyledTableCell>
-                <StyledTableCell component="th" scope="row">
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    style={{ width: "100px", height: "auto" }}
-                  />
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <button
-                    onClick={() => handleDelete(product._id)}
-                    className="text-red-500 border-2 border-red-500 hover:bg-red-500 hover:text-white font-semibold p-2"
-                  >
-                    Deletar
-                  </button>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))
-          ) : (
-            <StyledTableRow>
-              <StyledTableCell colSpan={7} align="center">
-                Nenhum produto encontrado
-              </StyledTableCell>
-            </StyledTableRow>
-          )}
+          {data?.map((product) => (
+            <TableRow key={product._id}>
+              <TableCell align="left">{product.title}</TableCell>
+              <TableCell align="left">{product.category.name}</TableCell>
+              <TableCell align="left">R$ {product.price}</TableCell>
+              <TableCell align="left">{product.stock}</TableCell>
+              <TableCell align="left">
+                <img src={product.image} className="w-16 h-16" />
+              </TableCell>
+              <TableCell align="center">
+                <button
+                  onClick={() => handleEdit(product)}
+                  className="text-blue-500 hover:text-blue-700"
+                >
+                  <FaEdit />
+                </button>
+                <button
+                  onClick={() => handleDelete(product._id)}
+                  className="text-red-500 hover:text-red-700 ml-2"
+                >
+                  <MdDeleteForever />
+                </button>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

@@ -42,15 +42,13 @@ export const getAllCategoriesService = async () => {
   }
 };
 
-// Função no backend - editar categoria
 export const editCategoryByIdService = async (
   id: string,
   data: CategoryData
 ) => {
   try {
-    // Corrigido o uso do findByIdAndUpdate
     const category = await Category.findByIdAndUpdate(id, data, {
-      new: true, // Retorna a categoria atualizada
+      new: true,
     });
     return category;
   } catch (error) {

@@ -1,5 +1,3 @@
-// types/orders.ts
-
 export interface Product {
   _id: string;
   name: string;

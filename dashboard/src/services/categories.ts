@@ -35,7 +35,7 @@ export const editCategoryById = async ({
   name: string;
 }) => {
   try {
-    const { data } = await api.put(`/categories/${id}`, { name }); // Passando o nome como um objeto
+    const { data } = await api.put(`/categories/${id}`, { name });
     return data;
   } catch (error) {
     console.log(error);

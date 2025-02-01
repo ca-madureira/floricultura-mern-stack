@@ -7,7 +7,7 @@ interface ProductData {
   category: string;
   price: number;
   stock: number;
-  image: string;
+  image?: string;
 }
 
 export const createProductService = async (data: ProductData) => {
@@ -37,6 +37,37 @@ export const createProductService = async (data: ProductData) => {
   return newProduct;
 };
 
+export const updateProductService = async (id: string, data: ProductData) => {
+  const { title, description, category, price, stock, image } = data;
+
+  let cloudinaryResponse = null;
+
+  if (image) {
+    // Se a imagem foi alterada, fazemos o upload da nova imagem no Cloudinary
+    cloudinaryResponse = await cloudinary.uploader.upload(image, {
+      folder: "papelaria", // Altere a pasta conforme necessário
+    });
+  }
+
+  // Atualiza o produto no banco de dados
+  const updatedProduct = await Product.findByIdAndUpdate(
+    id,
+    {
+      title,
+      description,
+      category,
+      price,
+      stock,
+      image: cloudinaryResponse?.secure_url
+        ? cloudinaryResponse.secure_url
+        : image, // Se não houver nova imagem, mantemos a antiga
+    },
+    { new: true } // Retorna o produto atualizado
+  );
+
+  return updatedProduct;
+};
+
 export const getAllProductsService = async () => {
   try {
     const products = await Product.find({}).populate("category", "name");
@@ -48,7 +79,7 @@ export const getAllProductsService = async () => {
     return products;
   } catch (error) {
     console.log(error);
-    throw error; // Re-throwing the error after logging it
+    throw error;
   }
 };
 

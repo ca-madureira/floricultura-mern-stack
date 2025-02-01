@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAllCategories, deleteCategory } from "../services/categories"; // Funções que fazem chamadas ao backend
-
+import { FaEdit } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,13 +11,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-// Tipagem para uma categoria
 interface Category {
-  _id: string; // Alterei para 'string' assumindo que você usa um identificador string no back-end
+  _id: string;
   name: string;
 }
 
-// Tipagem para as props do componente CategoryTable
 interface CategoryTableProps {
   handleEdit: (category: { id: string; name: string }) => void;
 }
@@ -25,9 +24,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#27984c",
     color: theme.palette.common.white,
+    fontWeight: "bold",
+    padding: "12px 16px",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    padding: "12px 16px",
   },
 }));
 
@@ -44,19 +46,19 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ handleEdit }) => {
   const queryClient = useQueryClient();
 
   const deletePostMutation = useMutation<void, Error, string>({
-    mutationFn: deleteCategory, // Função de deleção
+    mutationFn: deleteCategory,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
   });
 
   const handleDelete = (id: string) => {
-    deletePostMutation.mutate(id); // Passando o id corretamente para a mutação
+    deletePostMutation.mutate(id);
   };
 
   const { data, isLoading, isError } = useQuery<Category[], Error>({
-    queryKey: ["categories"], // A chave única para a query
-    queryFn: getAllCategories, // Função que obtém as categorias
+    queryKey: ["categories"],
+    queryFn: getAllCategories,
   });
 
   if (isLoading) {
@@ -69,7 +71,7 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ handleEdit }) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 120 }} aria-label="tabela personalizada">
+      <Table sx={{ minWidth: 250 }} aria-label="tabela personalizada">
         <TableHead>
           <TableRow>
             <StyledTableCell>Nome</StyledTableCell>
@@ -83,29 +85,27 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ handleEdit }) => {
                 <StyledTableCell component="th" scope="row">
                   {category.name}
                 </StyledTableCell>
-                <StyledTableCell align="right">
+                <StyledTableCell align="center">
                   <button
                     onClick={() =>
                       handleEdit({ id: category._id, name: category.name })
                     }
-                    className="text-blue-500 border-2 border-blue-500 hover:bg-blue-500 hover:text-white font-semibold p-2"
+                    className="border-2 border-blue-500 bg-blue-500 hover:bg-white text-white hover:text-blue-500 font-semibold p-2 mr-2" // Adicionando margem à direita
                   >
-                    Editar
+                    <FaEdit />
                   </button>
-                </StyledTableCell>
-                <StyledTableCell align="right">
                   <button
                     onClick={() => handleDelete(category._id)}
-                    className="text-red-500 border-2 border-red-500 hover:bg-red-500 hover:text-white font-semibold p-2"
+                    className="text-white hover:text-red-500 border-2 border-red-500 bg-red-500 hover:bg-white font-semibold p-2"
                   >
-                    Deletar
+                    <MdDeleteForever />
                   </button>
                 </StyledTableCell>
               </StyledTableRow>
             ))
           ) : (
             <StyledTableRow>
-              <StyledTableCell colSpan={4} align="center">
+              <StyledTableCell colSpan={3} align="center">
                 Nenhuma categoria encontrada
               </StyledTableCell>
             </StyledTableRow>

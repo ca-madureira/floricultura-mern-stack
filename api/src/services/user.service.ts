@@ -1,7 +1,6 @@
 import { User } from "../models/user.model";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken";
-import { Types } from "mongoose";
 
 interface UserData {
   name: string;

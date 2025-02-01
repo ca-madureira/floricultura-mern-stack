@@ -14,16 +14,12 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await loginUser(req.body);
 
-    console.log("Antes de setar o cookie:", user.token);
-
     res.cookie("access_token", user.token, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
       sameSite: "lax",
       secure: false,
     });
-
-    console.log("Depois de setar o cookie:", res.getHeaders());
 
     res.status(200).json(user);
   } catch (error) {

@@ -18,7 +18,6 @@ export const isAuthenticatedToken = async (
 
   if (!token) {
     res.status(401).json("usuario nao autenticado");
-    return; // Adiciona return aqui para garantir que o código pare após o erro
   }
 
   try {
