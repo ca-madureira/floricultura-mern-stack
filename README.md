@@ -13,7 +13,14 @@ Este é o repositório para o projeto **Flores de Papel**, uma aplicação de e-
 - **Carrinho de Compras**: O usuário pode adicionar produtos ao carrinho e finalizar a compra.
 - **Autenticação de Usuário**: Para acessar o carrinho e finalizar a compra, o usuário precisa estar autenticado.
 - **Integração com Cloudinary**: O upload de imagens de produtos é feito através da integração com o Cloudinary.
-- **Pagamento com Stripe**: Funcionalidade a ser implementada na próxima versão.
+
+
+## Melhorias na próxima versão
+
+- **Pagamento com Stripe**: Integração com gateway de pagamento ao finalizar compra.
+- **Autenticação Admin**: Implementar autenticação do admin no dashboard.
+- **Detalhes do pedido**: Melhorar a visualização dos pedidos.
+- **Detalhes do produto**: Visualizar detalhes do produto ao clicar nele.
 
 ## Estrutura do Projeto
 
