@@ -44,15 +44,15 @@ cd flores-de-papel
 
 ```
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/c8e0bab5-61fd-4b3d-821d-258a58c84aa3" width="600" />
-  <img src="https://github.com/user-attachments/assets/d658ae26-f030-4997-aaa4-7f3e21416c96" width="600" />
+  <img src="https://github.com/user-attachments/assets/c8e0bab5-61fd-4b3d-821d-258a58c84aa3" width="700" />
+  <img src="https://github.com/user-attachments/assets/d658ae26-f030-4997-aaa4-7f3e21416c96" width="700" />
 </div>
 
 <br/>
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/f75d016f-e614-4a99-9ff5-31628d67c8de" width="285"/>
-  <img src="https://github.com/user-attachments/assets/df4ccc70-da28-46c8-85c8-75d5fede5448" width="250"/>
+  <img src="https://github.com/user-attachments/assets/f75d016f-e614-4a99-9ff5-31628d67c8de" width="350"/>
+  <img src="https://github.com/user-attachments/assets/df4ccc70-da28-46c8-85c8-75d5fede5448" width="300"/>
 </div>
 
 
