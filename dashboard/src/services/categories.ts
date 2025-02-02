@@ -19,7 +19,7 @@ export const createCategory = async ({ name }: { name: string }) => {
 
 export const getAllCategories = async () => {
   try {
-    const { data } = await api.get("categories/");
+    const { data } = await api.get("/categories/");
     return data;
   } catch (error) {
     console.log(error);
@@ -45,7 +45,7 @@ export const editCategoryById = async ({
 
 export const deleteCategory = async (id: string) => {
   try {
-    const { data } = await api.delete(`categories/${id}`);
+    const { data } = await api.delete(`/categories/${id}`);
     return data;
   } catch (error) {
     console.log(error);

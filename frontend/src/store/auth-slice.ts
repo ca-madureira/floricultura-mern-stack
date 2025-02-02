@@ -45,9 +45,11 @@ const authSlice = createSlice({
       );
     },
 
-    // Ação de logout
     setLogout: (state) => {
       state.user = null;
+      state.token = null;
+      state.isAuthenticated = false;
+      localStorage.removeItem("account");
     },
   },
 });

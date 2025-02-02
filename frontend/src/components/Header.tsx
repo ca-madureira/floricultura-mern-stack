@@ -9,22 +9,32 @@ import { RootState } from "../store/types";
 
 import logo from "../assets/logoipsum.svg";
 import { setLogout } from "../store/auth-slice";
+import { clearCart } from "../store/cart-slice";
 
 export const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const cart = useSelector((state: RootState) => state.cart);
+  const isAuth = useSelector((state: RootState) => state.user.isAuthenticated);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(setLogout());
+    dispatch(clearCart());
     navigate("/login");
+  };
+
+  const handleHome = () => {
+    navigate("/");
   };
 
   return (
     <header className="bg-[#27984c] p-2 flex justify-between items-center">
-      <div className="flex items-center text-white font-bold">
+      <div
+        className="flex items-center text-white font-bold cursor-pointer"
+        onClick={handleHome}
+      >
         <img src={logo} className="w-10" alt="Logo Flores de Papel" />
         <span className="ml-2">Flores de Papel</span>
       </div>
@@ -53,9 +63,19 @@ export const Header = () => {
               className="absolute top-8 right-0 bg-white text-black p-4 rounded-md shadow-lg"
             >
               <ul>
-                <li>
-                  <button onClick={handleLogout}>Sair</button>
-                </li>
+                {isAuth ? (
+                  <li>
+                    <button onClick={handleLogout}>Sair</button>
+                  </li>
+                ) : (
+                  <Link to="/login">Login</Link>
+                )}
+
+                {isAuth && (
+                  <li>
+                    <Link to="/order-success">Pedidos</Link>
+                  </li>
+                )}
               </ul>
             </nav>
           )}

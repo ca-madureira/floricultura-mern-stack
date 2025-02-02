@@ -62,7 +62,7 @@ export const Categories = () => {
   const isLoading = createStatus === "pending" || editStatus === "pending";
 
   return (
-    <main className="w-[85%] md:w-full flex flex-col justify-center items-center h-screen px-4 sm:px-6 ">
+    <main className="w-[85%] md:w-full flex flex-col justify-center items-center h-screen px-4 sm:px-6 mt-6">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-4 items-center sm:items-end w-full sm:w-[80%] md:w-[50%] lg:w-[40%]"

@@ -80,7 +80,7 @@ const CartTable = ({
                 <StyledTableCell component="th" scope="row">
                   <img
                     src={item.image}
-                    className="w-32"
+                    className="w-16 h-18 object-cover"
                     alt={item.description}
                   />
                 </StyledTableCell>
@@ -117,7 +117,7 @@ const CartTable = ({
                   </div>
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  {item.price}
+                  R$ {item.price},00
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   R$

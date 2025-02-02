@@ -5,8 +5,8 @@ import { FaRegNewspaper, FaRegListAlt } from "react-icons/fa";
 
 export const Sidebar = () => {
   return (
-    <div className="flex w-full">
-      <aside className="bg-[#27984c] w-[12%] md:w-[20%] h-screen fixed top-0 left-0">
+    <div className="flex justify-between w-full">
+      <aside className="bg-[#27984c] w-[12%] md:w-[20%] h-screen sticky top-0 left-0">
         <div className="flex items-center gap-2 text-center p-4 text-lg text-white font-bold">
           <img src={logo} alt="Logo" className="w-12" />
 
@@ -34,7 +34,7 @@ export const Sidebar = () => {
         </nav>
       </aside>
 
-      <div className="ml-[12%] w-full">
+      <div className="w-full">
         <Outlet />
       </div>
     </div>

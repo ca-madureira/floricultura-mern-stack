@@ -13,7 +13,7 @@ interface ProductData {
   _id?: string;
   title: string;
   description: string;
-  category: { _id: string; name: string }; // A categoria agora será uma string (_id da categoria)
+  category: { _id: string; name: string };
   price: number;
   stock: number;
   image: string | null;
@@ -56,7 +56,7 @@ export const Products = () => {
       id: string;
       title: string;
       description: string;
-      category: { _id: string; name: string }; // Categoria agora é só o _id (string)
+      category: { _id: string; name: string };
       price: number;
       stock: number;
       image: string;
@@ -80,7 +80,7 @@ export const Products = () => {
     setEditingProduct(product);
     setValue("title", product.title);
     setValue("description", product.description);
-    setValue("category", product.category); // Agora apenas o _id da categoria
+    setValue("category", product.category);
     setValue("price", product.price);
     setValue("stock", product.stock);
     setValue("image", product.image);
@@ -98,7 +98,7 @@ export const Products = () => {
     defaultValues: {
       title: "",
       description: "",
-      category: { _id: "", name: "" }, // O valor inicial é uma string vazia
+      category: { _id: "", name: "" },
       price: 0,
       stock: 0,
       image: null,
@@ -113,7 +113,7 @@ export const Products = () => {
     const productData = {
       title: data.title,
       description: data.description,
-      category: data.category, // Aqui passamos o _id da categoria (agora uma string)
+      category: data.category,
       price,
       stock,
       image: data.image,
@@ -150,11 +150,11 @@ export const Products = () => {
   const isLoading = status === "pending" || editStatus === "pending";
 
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col gap-12">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full">
         <button
           type="submit"
-          className="flex items-center md:self-end md:w-[18%] w-[82%] ml-2 gap-2 text-white hover:text-[#27984c] bg-[#27984c] hover:bg-white text-white font-medium mr-[8%] mt-6 border border-[#27984c] p-2"
+          className="flex items-center md:self-end md:w-[18%] w-[82%] ml-2 gap-2 text-white hover:text-[#27984c] bg-[#27984c] hover:bg-white text-white font-medium md:mr-[4%] md:mt-6 border border-[#27984c] p-2"
         >
           <FaPlusCircle />
           {isLoading
@@ -237,8 +237,8 @@ export const Products = () => {
                 <div className="flex items-center bg-zinc-200 pl-3 outline-gray-300 w-[30vw] md:w-[6vw]">
                   <input
                     id="price"
-                    type="number" // Alterado de text para number
-                    step="0.01" // Permite valores decimais
+                    type="number"
+                    step="0.01"
                     placeholder="R$ X,XXX.XX"
                     className="outline-none bg-zinc-200 w-full h-[6vh] text-sm font-light text-gray-900"
                     {...register("price", { valueAsNumber: true })} // Adicionando valueAsNumber
@@ -249,9 +249,15 @@ export const Products = () => {
                 )}
               </div>
               <div className="flex flex-col">
+                <label
+                  htmlFor="stock"
+                  className="block text-sm/6 font-light text-gray-900"
+                >
+                  Estoque:
+                </label>
                 <select
                   id="stock"
-                  {...(register("stock"), { valueAsNumber: true })}
+                  {...register("stock", { valueAsNumber: true })}
                   className="outline-none bg-zinc-200 w-[40vw] md:w-[10vw] h-[6vh] text-sm font-light text-gray-900 p-2"
                 >
                   <option value="">Selecione</option>
@@ -276,7 +282,7 @@ export const Products = () => {
               Adicionar imagem
             </legend>
             {image ? (
-              <div className="mt-4 rounded-md">
+              <div className="flex justify-center mt-4 rounded-md">
                 <img
                   src={image}
                   alt="Pré-visualização"
@@ -306,7 +312,7 @@ export const Products = () => {
         </section>
       </form>
 
-      <section className="ml-28 w-[85%]">
+      <section className="mx-2 md:ml-28 md:w-[85%] overflow-x-auto">
         <ProductTable handleEdit={handleEdit} />
       </section>
     </main>

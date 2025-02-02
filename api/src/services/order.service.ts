@@ -1,4 +1,4 @@
-import { Order } from "../models/order.model"; // Importando o modelo Order
+import { Order } from "../models/order.model";
 import mongoose from "mongoose";
 
 interface ICartItem {
@@ -24,6 +24,7 @@ export const createOrderService = async ({
 
     const newOrder = new Order({
       orderNumber: newOrderNumber,
+      user,
       cartItems,
       totalAmount,
       status: "pago",
@@ -37,13 +38,11 @@ export const createOrderService = async ({
   }
 };
 
-// Função para obter todos os pedidos de um usuário
 export const getAllOrdersService = async (userId: mongoose.Types.ObjectId) => {
   try {
-    // Buscando pedidos do usuário e populando o campo `product` nos itens do carrinho
     const orders = await Order.find({ user: userId }).populate({
-      path: "cartItems.product", // Populando o campo "product" dentro de "cartItems"
-      select: "title", // Selecionando o campo "title" do produto (ajuste caso o nome do campo seja diferente)
+      path: "cartItems.product",
+      select: "title price",
     });
 
     return orders;

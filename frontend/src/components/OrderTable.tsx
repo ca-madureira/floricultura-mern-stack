@@ -64,11 +64,7 @@ const OrderTable = () => {
   }
 
   return (
-    <TableContainer
-      component={Paper}
-      sx={{ maxHeight: 400, width: "100%" }}
-      className="mt-6"
-    >
+    <TableContainer component={Paper} className="mt-6 overflow-x-auto">
       <Table aria-label="tabela personalizada">
         <TableHead>
           <TableRow>
@@ -86,10 +82,10 @@ const OrderTable = () => {
                   {order.orderNumber}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row" align="center">
-                  {order.totalAmount}
+                  R$ {order.totalAmount},00
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row" align="center">
-                  <div className="rounded-md text-amber-600 text-sm font-semibold">
+                  <div className="rounded-md bg-teal-200 p-1 text-teal-600 text-sm font-semibold">
                     {order.status}
                   </div>
                 </StyledTableCell>
@@ -97,7 +93,8 @@ const OrderTable = () => {
                   <div>
                     {order.cartItems.map((item, index) => (
                       <div key={index} style={{ marginBottom: "8px" }}>
-                        {item.product?.title}-{item.quantity}
+                        {item.quantity} - {item.product?.title} - R$
+                        {item.product?.price * item.quantity},00
                       </div>
                     ))}
                   </div>

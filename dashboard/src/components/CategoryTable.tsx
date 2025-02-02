@@ -90,15 +90,15 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ handleEdit }) => {
                     onClick={() =>
                       handleEdit({ id: category._id, name: category.name })
                     }
-                    className="border-2 border-blue-500 bg-blue-500 hover:bg-white text-white hover:text-blue-500 font-semibold p-2 mr-2" // Adicionando margem à direita
+                    className="text-blue-500 hover:text-blue-700"
                   >
-                    <FaEdit />
+                    <FaEdit className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => handleDelete(category._id)}
-                    className="text-white hover:text-red-500 border-2 border-red-500 bg-red-500 hover:bg-white font-semibold p-2"
+                    className="text-red-500 hover:text-red-700"
                   >
-                    <MdDeleteForever />
+                    <MdDeleteForever className="w-5 h-5" />
                   </button>
                 </StyledTableCell>
               </StyledTableRow>

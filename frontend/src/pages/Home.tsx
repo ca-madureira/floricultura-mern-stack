@@ -1,13 +1,10 @@
-import { useQuery } from "@tanstack/react-query"; // Para gerenciar dados assíncronos e cache
-import { getAllProducts } from "../services/products"; // Função para buscar os produtos
-import { useState } from "react"; // Hook do React para gerenciar estado
-import { useDispatch } from "react-redux"; // Hook para despachar ações para o Redux
-import { addToCart } from "../store/cart-slice"; // Ação para adicionar produtos ao carrinho
-// import { useSelector } from "react-redux"; // Hook para acessar o estado do Redux
-// import { RootState } from "../store/types"; // Tipagem do estado global do Redux
+import { useQuery } from "@tanstack/react-query";
+import { getAllProducts } from "../services/products";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cart-slice";
 
 export const Home = () => {
-  // const cart = useSelector((state: RootState) => state.cart);
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null); // Estado de carregamento
   const dispatch = useDispatch();
@@ -51,9 +48,8 @@ export const Home = () => {
 
   const addProductToCart = (product: Product) => {
     const { _id, title, description, price, image } = product;
-    const quantity = quantities[_id] || 1; // Se não houver quantidade definida, assume 1
+    const quantity = quantities[_id] || 1;
 
-    // Marcar o produto como sendo adicionado
     setLoadingProductId(_id);
 
     dispatch(
@@ -67,26 +63,25 @@ export const Home = () => {
       })
     );
 
-    // Após adicionar o produto ao carrinho, resetar o estado de carregamento
     setTimeout(() => {
-      setLoadingProductId(null); // Reseta o estado após um tempo, simulando a "finalização" do processo
-    }, 500); // Ajuste o tempo conforme necessário
+      setLoadingProductId(null);
+    }, 500);
   };
 
   return (
-    <main className="flex flex-wrap gap-6">
+    <main className="flex justify-center gap-2 md:gap-4 flex-wrap md:flex-nowrap ">
       {data?.map((product: Product) => (
         <section
           key={product._id}
-          className="bg-white shadow-sm border-1 w-fit p-4 flex flex-col gap-2 mt-2"
+          className="bg-white shadow-lg border-1 w-[45%] md:w-[40%] h-[42vh] p-4 flex flex-col gap-2 mt-2"
         >
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center h-[30vh] justify-between">
             <img
               src={product.image}
-              className="w-32 h-28"
+              className="w-16 h-20"
               alt={product.title}
             />
-            <p className="font-semibold">{product.title}</p>
+            <p className="font-semibold text-sm text-center">{product.title}</p>
             <p className="font-bold text-sm text-slate-600">
               R${product.price},00
             </p>
@@ -110,7 +105,7 @@ export const Home = () => {
           <button
             className="bg-[#27984c] p-2 text-white font-semibold"
             onClick={() => addProductToCart(product)}
-            disabled={loadingProductId === product._id} // Desabilita o botão enquanto o produto está sendo adicionado
+            disabled={loadingProductId === product._id}
           >
             {loadingProductId === product._id ? "Adicionando..." : "Adicionar"}
           </button>

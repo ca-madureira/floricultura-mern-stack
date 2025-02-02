@@ -10,7 +10,6 @@ import { Home } from "./pages/Home";
 import { Cart } from "./pages/Cart";
 import { OrderPage } from "./pages/Order";
 
-// Componente para rotas protegidas
 const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
   if (!isAuthenticated) {
@@ -20,7 +19,6 @@ const ProtectedRoutes = ({ children }: { children: React.ReactNode }) => {
   return children;
 };
 
-// Componente para rotas onde usuários autenticados não devem acessar
 const AuthenticatedUser = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useSelector((state: RootState) => state.user);
 
@@ -34,17 +32,17 @@ const AuthenticatedUser = ({ children }: { children: React.ReactNode }) => {
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />, // MainLayout aparece apenas nas rotas de dentro
+    element: <MainLayout />,
     children: [
       {
         path: "/",
-        element: <Home />, // Home não exige autenticação
+        element: <Home />,
       },
       {
         path: "/cart",
         element: (
           <ProtectedRoutes>
-            <Cart /> {/* Cart só pode ser acessado se estiver logado */}
+            <Cart />
           </ProtectedRoutes>
         ),
       },
@@ -52,7 +50,7 @@ const appRouter = createBrowserRouter([
         path: "/order-success",
         element: (
           <ProtectedRoutes>
-            <OrderPage /> {/* Cart só pode ser acessado se estiver logado */}
+            <OrderPage />
           </ProtectedRoutes>
         ),
       },
@@ -62,7 +60,7 @@ const appRouter = createBrowserRouter([
     path: "/login",
     element: (
       <AuthenticatedUser>
-        <LoginPage /> {/* LoginPage não usa o MainLayout */}
+        <LoginPage />
       </AuthenticatedUser>
     ),
   },
@@ -70,7 +68,7 @@ const appRouter = createBrowserRouter([
     path: "/signup",
     element: (
       <AuthenticatedUser>
-        <RegisterPage /> {/* RegisterPage também não usa o MainLayout */}
+        <RegisterPage />
       </AuthenticatedUser>
     ),
   },

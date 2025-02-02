@@ -19,7 +19,7 @@ export const Cart = () => {
     error,
   } = useMutation({
     mutationFn: (orderData: {
-      items: { product: string; quantity: number }[];
+      items: { product: string; quantity: number; price: number }[];
       total: number;
       userId: string;
     }) => {
@@ -50,6 +50,7 @@ export const Cart = () => {
       items: cart.items.map((item) => ({
         product: item.id,
         quantity: item.quantity,
+        price: item.price,
       })),
       total: cart.total,
       userId: userId,
@@ -62,7 +63,7 @@ export const Cart = () => {
 
   return (
     <section className="flex flex-col md:flex-row justify-evenly">
-      <div className="w-full w-[55%] flex flex-col items-end ">
+      <div className="w-full md:w-[60%] flex flex-col items-end ">
         <div className="flex w-full justify-between">
           <Link
             to="/"
