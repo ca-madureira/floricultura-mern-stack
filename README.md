@@ -22,8 +22,8 @@ Este é o repositório para o projeto **Flores de Papel**, uma aplicação de e-
 - **Detalhes do pedido**: Melhorar a visualização dos pedidos.
 - **Detalhes do produto**: Visualizar detalhes do produto ao clicar nele.
 
-## Correções de bugs pendentes
-- retorno de categoria e estoque (os dois são dropdown) ao o produto já existente no dashboard. 
+## Bugs pendentes para correção na próxima versão
+- retorno dos valores categoria e estoque (os dois são dropdown) ao editar o produto já existente no dashboard. 
 
 ## Estrutura do Projeto
 
