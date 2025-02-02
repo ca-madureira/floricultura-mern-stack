@@ -13,7 +13,14 @@ Este é o repositório para o projeto **Flores de Papel**, uma aplicação de e-
 - **Carrinho de Compras**: O usuário pode adicionar produtos ao carrinho e finalizar a compra.
 - **Autenticação de Usuário**: Para acessar o carrinho e finalizar a compra, o usuário precisa estar autenticado.
 - **Integração com Cloudinary**: O upload de imagens de produtos é feito através da integração com o Cloudinary.
-- **Pagamento com Stripe**: Funcionalidade a ser implementada na próxima versão.
+
+
+## Melhorias na próxima versão
+
+- **Pagamento com Stripe**: Integração com gateway de pagamento ao finalizar compra.
+- **Autenticação Admin**: Implementar autenticação do admin no dashboard.
+- **Detalhes do pedido**: Melhorar a visualização dos pedidos.
+- **Detalhes do produto**: Visualizar detalhes do produto ao clicar nele.
 
 ## Estrutura do Projeto
 
@@ -40,4 +47,26 @@ Clone o repositório para sua máquina local:
 
 ```bash
 git clone https://github.com/ca-madureira/papelaria-mern.git
-cd flores-de-papel
+cd papelaria-mern
+
+
+```
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/1ee3f560-e1ef-4134-ae33-a01ccc6e2344" width="700" />
+  <img src="https://github.com/user-attachments/assets/20e198ee-9dfb-4c00-a59e-5b2503743665" width="700" />
+</div>
+
+<br/>
+
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/5dc36020-35a3-41a1-8003-e69a2e2269c9" width="350"/>
+  <img src="https://github.com/user-attachments/assets/379f5554-9403-4264-9a8b-3a9024d3ddeb" width="300"/>
+</div>
+
+
+
+
+
+
+
