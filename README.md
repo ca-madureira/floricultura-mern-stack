@@ -41,3 +41,13 @@ Clone o repositório para sua máquina local:
 ```bash
 git clone https://github.com/ca-madureira/papelaria-mern.git
 cd flores-de-papel
+
+```
+<img src="https://github.com/user-attachments/assets/c765f434-5d89-464d-934d-8397011d8593" width="600" />
+<img src="https://github.com/user-attachments/assets/423d73ec-d388-4f65-b7d4-35299b9ca50d" width="600" />
+<img src="https://github.com/user-attachments/assets/cea00da0-46cd-422d-a010-4f1d2248b704" width="600" />
+<img src="https://github.com/user-attachments/assets/166e819f-74f9-4d11-bad3-e4d41299fc81" width="600"/>
+
+
+
+
