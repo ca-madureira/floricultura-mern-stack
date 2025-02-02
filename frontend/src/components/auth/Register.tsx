@@ -63,8 +63,8 @@ export const Register = () => {
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   return (
-    <section className="flex justify-center h-screen md:items-start ">
-      <section className="relative w-1/2 flex flex-col hidden md:block ">
+    <section className="flex justify-center h-screen md:items-start mt-14">
+      <section className="relative w-1/2 flex flex-col hidden md:block">
         <section className="">
           <h1 className="text-2xl text-center text-[#27984c] font-bold my-4">
             Faça seu cadastro e conheça nossa papelaria

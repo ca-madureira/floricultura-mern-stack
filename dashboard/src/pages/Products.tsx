@@ -150,11 +150,11 @@ export const Products = () => {
   const isLoading = status === "pending" || editStatus === "pending";
 
   return (
-    <main className="flex flex-col gap-12">
+    <main className="flex flex-col gap-2 md:gap-12">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full">
         <button
           type="submit"
-          className="flex items-center md:self-end md:w-[18%] w-[82%] ml-2 gap-2 text-white hover:text-[#27984c] bg-[#27984c] hover:bg-white text-white font-medium md:mr-[4%] md:mt-6 border border-[#27984c] p-2"
+          className="flex items-center md:self-end md:w-[20%] w-[90%] gap-2 text-white hover:text-[#27984c] bg-[#27984c] hover:bg-white text-white font-medium mt-4 md:mt-10 ml-2 md:mr-[8%] border border-[#27984c] p-2"
         >
           <FaPlusCircle />
           {isLoading
@@ -164,8 +164,8 @@ export const Products = () => {
             : "Adicionar Produto"}
         </button>
 
-        <section className="flex flex-col md:flex-row justify-evenly">
-          <section className="bg-slate-100 rounded-md mx-2 md:mx-20 mt-10 p-4 w-[82%] md:w-2/4">
+        <section className="flex flex-col md:flex-row ml-2 justify-evenly">
+          <section className="bg-slate-100 rounded-md mt-10 p-4 w-[92%] md:w-2/4 px-2">
             <legend className="text-sm font-medium text-slate-800">
               Informações gerais
             </legend>
@@ -274,7 +274,7 @@ export const Products = () => {
             </div>
           </section>
 
-          <section className="flex flex-col gap-2 mx-4 justify-between bg-slate-100 rounded-md mt-10 p-4 w-[80%] md:w-1/4">
+          <section className="flex flex-col gap-6 md:gap-2 justify-between bg-slate-100 rounded-md mt-10 p-4 w-[92%] md:w-1/4">
             {errors.image && (
               <span className="text-red-500">{errors.image.message}</span>
             )}
@@ -312,7 +312,7 @@ export const Products = () => {
         </section>
       </form>
 
-      <section className="mx-2 md:ml-28 md:w-[85%] overflow-x-auto">
+      <section className="w-[90%] md:w-[84%] mt-6 ml-2 md:ml-20 overflow-x-auto">
         <ProductTable handleEdit={handleEdit} />
       </section>
     </main>

@@ -1,4 +1,3 @@
-// 1. Bibliotecas externas
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
@@ -8,12 +7,10 @@ import { useDispatch } from "react-redux";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 import { RiLockPasswordLine, RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 
-// 2. Módulos internos (serviços, estado, schemas, etc.)
 import { login } from "../../services/users";
 import { setLogin } from "../../store/auth-slice";
 import { loginSchema } from "../../schemas/userSchema";
 
-// 3. Imagens ou arquivos estáticos
 import signupImage from "../../assets/signup_login.svg";
 
 export const Login = () => {
@@ -58,7 +55,7 @@ export const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <section className="flex justify-center h-screen md:items-start">
+    <section className="flex justify-center h-screen md:items-start mt-14">
       <section className="relative w-1/2 flex flex-col hidden md:block">
         <section className="">
           <h1 className="text-2xl text-center text-[#27984c] font-bold my-4">

@@ -1,6 +1,5 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { tableCellClasses } from "@mui/material/TableCell";
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -37,6 +36,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
     padding: "12px 16px",
+  },
+  "@media (max-width:600px)": {
+    "&.hide-on-mobile": {
+      display: "none",
+    },
   },
 }));
 
@@ -78,14 +82,20 @@ const ProductTable = ({ handleEdit }: ProductTableProps) => {
 
   return (
     <TableContainer component={Paper} className="w-full">
-      <Table sx={{ minWidth: 120 }} aria-label="Tabela de Produtos">
+      <Table aria-label="Tabela de Produtos">
         <TableHead sx={{ backgroundColor: "#27984c", color: "white" }}>
           <TableRow>
             <StyledTableCell align="left">Produto</StyledTableCell>
-            <StyledTableCell align="left">Categoria</StyledTableCell>
+            <StyledTableCell align="left" className="hide-on-mobile">
+              Categoria
+            </StyledTableCell>
             <StyledTableCell align="left">Preço</StyledTableCell>
-            <StyledTableCell align="left">Estoque</StyledTableCell>
-            <StyledTableCell align="left">Imagem</StyledTableCell>
+            <StyledTableCell align="left" className="hide-on-mobile">
+              Estoque
+            </StyledTableCell>
+            <StyledTableCell align="left" className="hide-on-mobile">
+              Imagem
+            </StyledTableCell>
             <StyledTableCell align="center">Ações</StyledTableCell>
           </TableRow>
         </TableHead>
@@ -93,12 +103,14 @@ const ProductTable = ({ handleEdit }: ProductTableProps) => {
           {data.map((product) => (
             <StyledTableRow key={product._id}>
               <StyledTableCell align="left">{product.title}</StyledTableCell>
-              <StyledTableCell align="left">
+              <StyledTableCell align="left" className="hide-on-mobile">
                 {product.category.name}
               </StyledTableCell>
               <StyledTableCell align="left">R$ {product.price}</StyledTableCell>
-              <StyledTableCell align="left">{product.stock}</StyledTableCell>
-              <StyledTableCell align="left">
+              <StyledTableCell align="left" className="hide-on-mobile">
+                {product.stock}
+              </StyledTableCell>
+              <StyledTableCell align="left" className="hide-on-mobile">
                 <img
                   src={product.image || "/default-image.png"}
                   alt={product.title}
@@ -108,7 +120,7 @@ const ProductTable = ({ handleEdit }: ProductTableProps) => {
               <StyledTableCell align="center">
                 <button
                   onClick={() => handleEdit(product)}
-                  className="text-blue-500 hover:text-blue-700"
+                  className="text-blue-500 hover:text-blue-700 ml-2"
                 >
                   <FaEdit className="w-5 h-5" />
                 </button>
