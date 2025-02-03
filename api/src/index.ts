@@ -23,7 +23,11 @@ app.use(bodyParser.json({ limit: "10mb" }));
 app.use(express.json());
 
 const corsOptions = {
-  origin: ["http://localhost:5173", "http://localhost:5174"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://papelaria-mern.vercel.app",
+  ],
   credentials: true,
 };
 app.use(cors(corsOptions));
