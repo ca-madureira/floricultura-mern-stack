@@ -85,7 +85,7 @@ export const Cart = () => {
         <h3 className="text-slate-800 font-bold">Resumo do Pedido</h3>
         <div className="flex justify-between">
           <span>Total </span>
-          <span>R${cart.total}.00</span>
+          <span>R${cart.total.toFixed(2).toString().replace(".", ",")}</span>
         </div>
         <button
           onClick={handleFinalizeOrder}

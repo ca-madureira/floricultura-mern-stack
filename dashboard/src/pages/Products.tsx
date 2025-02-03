@@ -248,6 +248,7 @@ export const Products = () => {
                   <span className="text-red-500">{errors.price.message}</span>
                 )}
               </div>
+
               <div className="flex flex-col">
                 <label
                   htmlFor="stock"

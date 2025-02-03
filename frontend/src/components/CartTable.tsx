@@ -117,13 +117,14 @@ const CartTable = ({
                   </div>
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
-                  R$ {item.price},00
+                  R$ {item.price.toFixed(2).toString().replace(".", ",")}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row">
                   R$
-                  {(
-                    item.price * (quantities[item.id] || item.quantity)
-                  ).toFixed(2)}{" "}
+                  {(item.price * (quantities[item.id] || item.quantity))
+                    .toFixed(2)
+                    .toString()
+                    .replace(".", ",")}{" "}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   <button

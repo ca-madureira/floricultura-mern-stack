@@ -106,7 +106,9 @@ const ProductTable = ({ handleEdit }: ProductTableProps) => {
               <StyledTableCell align="left" className="hide-on-mobile">
                 {product.category.name}
               </StyledTableCell>
-              <StyledTableCell align="left">R$ {product.price}</StyledTableCell>
+              <StyledTableCell align="left">
+                R$ {product.price.toFixed(2).toString().replace(".", ",")}
+              </StyledTableCell>
               <StyledTableCell align="left" className="hide-on-mobile">
                 {product.stock}
               </StyledTableCell>

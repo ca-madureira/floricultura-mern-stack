@@ -83,7 +83,7 @@ export const Home = () => {
             />
             <p className="font-semibold text-sm text-center">{product.title}</p>
             <p className="font-bold text-sm text-slate-600">
-              R${product.price},00
+              R$ {product.price.toFixed(2).toString().replace(".", ",")}
             </p>
             <div className="flex gap-1">
               <button

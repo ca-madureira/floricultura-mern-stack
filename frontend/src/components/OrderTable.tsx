@@ -82,7 +82,7 @@ const OrderTable = () => {
                   {order.orderNumber}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row" align="center">
-                  R$ {order.totalAmount},00
+                  R$ {order.totalAmount.toFixed(2).toString().replace(".", ",")}
                 </StyledTableCell>
                 <StyledTableCell component="th" scope="row" align="center">
                   <div className="rounded-md bg-teal-200 p-1 text-teal-600 text-sm font-semibold">
@@ -93,8 +93,11 @@ const OrderTable = () => {
                   <div>
                     {order.cartItems.map((item, index) => (
                       <div key={index} style={{ marginBottom: "8px" }}>
-                        {item.quantity} - {item.product?.title} - R$
-                        {item.product?.price * item.quantity},00
+                        {item.quantity} - {item.product?.title} - R${" "}
+                        {(item.product?.price * item.quantity)
+                          .toFixed(2)
+                          .toString()
+                          .replace(".", ",")}
                       </div>
                     ))}
                   </div>
