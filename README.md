@@ -1,6 +1,6 @@
 # Flores de Papel - MERN Stack E-commerce
 
-Este é o repositório para o projeto **Flores de Papel**, uma aplicação de e-commerce para uma papelaria online, desenvolvida com a stack MERN (MongoDB, Express, React, Node.js). O sistema é composto por três partes principais:
+Este é o repositório para o projeto **Flores de Papel**, uma aplicação de e-commerce para uma floricultura online, desenvolvida com a stack MERN (MongoDB, Express, React, Node.js). O sistema é composto por três partes principais:
 
 - **Frontend**: Interface de usuário onde os clientes visualizam os produtos, adicionam ao carrinho e finalizam pedidos.
 - **Dashboard**: Área administrativa para o cadastro de produtos e categorias.
