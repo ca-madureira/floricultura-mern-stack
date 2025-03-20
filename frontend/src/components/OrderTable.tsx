@@ -28,7 +28,7 @@ interface Order {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#27984c",
+    backgroundColor: "#F43F5E",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {

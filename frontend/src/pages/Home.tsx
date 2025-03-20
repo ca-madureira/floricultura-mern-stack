@@ -3,10 +3,11 @@ import { getAllProducts } from "../services/products";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cart-slice";
+import { Hero } from "../components/Hero";
 
 export const Home = () => {
   const [quantities, setQuantities] = useState<{ [key: string]: number }>({});
-  const [loadingProductId, setLoadingProductId] = useState<string | null>(null); // Estado de carregamento
+  const [loadingProductId, setLoadingProductId] = useState<string | null>(null);
   const dispatch = useDispatch();
 
   interface Product {
@@ -69,48 +70,51 @@ export const Home = () => {
   };
 
   return (
-    <main className="flex justify-center gap-2 md:gap-4 flex-wrap md:flex-nowrap ">
-      {data?.map((product: Product) => (
-        <section
-          key={product._id}
-          className="bg-white shadow-lg border-1 w-[45%] md:w-[40%] h-[42vh] p-4 flex flex-col gap-2 mt-2"
-        >
-          <div className="flex flex-col items-center h-[30vh] justify-between">
-            <img
-              src={product.image}
-              className="w-16 h-20"
-              alt={product.title}
-            />
-            <p className="font-semibold text-sm text-center">{product.title}</p>
-            <p className="font-bold text-sm text-slate-600">
-              R$ {product.price.toFixed(2).toString().replace(".", ",")}
-            </p>
-            <div className="flex gap-1">
-              <button
-                onClick={() => handleQuantityChange(product._id, "decrement")}
-                className="bg-teal-400 rounded-md px-2 font-semibold"
-              >
-                -
-              </button>
-              {quantities[product._id] || 1}
-              <button
-                onClick={() => handleQuantityChange(product._id, "increment")}
-                className="bg-teal-400 rounded-md px-2"
-              >
-                +
-              </button>
-            </div>
-          </div>
-
-          <button
-            className="bg-[#27984c] p-2 text-white font-semibold"
-            onClick={() => addProductToCart(product)}
-            disabled={loadingProductId === product._id}
+    <main className="h-full bg-gradient-to-r from-purple-400 to-rose-300 flex flex-col md:justify-center md:items-center gap-2 md:gap-4 flex-wrap">
+      <Hero />
+      <section className="flex flex-wrap gap-2 md:gap-6 md:w-[80%] pb-6">
+        {data?.map((product: Product) => (
+          <section
+            key={product._id}
+            className="bg-rose-100 shadow-lg border-1 w-[46%] md:w-[25vh] h-[42vh] p-4 flex flex-col gap-2 mt-2 rounded-tl-md ml-2 md:ml-0"
           >
-            {loadingProductId === product._id ? "Adicionando..." : "Adicionar"}
-          </button>
-        </section>
-      ))}
+            <div className="flex flex-col items-center h-[30vh] justify-between">
+              <img src={product.image} className=" h-24" alt={product.title} />
+              <p className="font-semibold text-sm text-center">
+                {product.title}
+              </p>
+              <p className="font-bold text-sm text-slate-600">
+                R$ {product.price.toFixed(2).toString().replace(".", ",")}
+              </p>
+              <div className="flex gap-1">
+                <button
+                  onClick={() => handleQuantityChange(product._id, "decrement")}
+                  className="bg-rose-200 rounded-md px-2 font-semibold"
+                >
+                  -
+                </button>
+                {quantities[product._id] || 1}
+                <button
+                  onClick={() => handleQuantityChange(product._id, "increment")}
+                  className="bg-rose-200 rounded-md px-2"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <button
+              className="bg-rose-500 p-2 text-white font-semibold rounded-md"
+              onClick={() => addProductToCart(product)}
+              disabled={loadingProductId === product._id}
+            >
+              {loadingProductId === product._id
+                ? "Adicionando..."
+                : "Adicionar"}
+            </button>
+          </section>
+        ))}
+      </section>
     </main>
   );
 };

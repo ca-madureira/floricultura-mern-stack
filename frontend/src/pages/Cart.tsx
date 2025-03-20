@@ -62,7 +62,7 @@ export const Cart = () => {
   const isLoading = status === "pending";
 
   return (
-    <section className="flex flex-col md:flex-row justify-evenly">
+    <section className="flex flex-col h-screen md:flex-row justify-evenly">
       <div className="w-full md:w-[60%] flex flex-col items-end ">
         <div className="flex w-full justify-between">
           <Link
@@ -90,7 +90,7 @@ export const Cart = () => {
         <button
           onClick={handleFinalizeOrder}
           disabled={isLoading}
-          className="bg-[#27984c] text-white font-semibold rounded-md p-2"
+          className="bg-rose-400 text-white font-semibold rounded-md p-2"
         >
           {isLoading ? "Finalizando..." : "Finalizar compra"}
         </button>

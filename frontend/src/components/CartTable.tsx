@@ -14,7 +14,7 @@ import { CartItem, updateQuantity } from "../store/cart-slice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#27984c",
+    backgroundColor: "#F43F5E",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -97,7 +97,7 @@ const CartTable = ({
                           "decrement"
                         )
                       }
-                      className="bg-teal-400 px-2 rounded-md mr-2"
+                      className="bg-rose-300 px-2 rounded-md mr-2"
                     >
                       -
                     </button>
@@ -110,7 +110,7 @@ const CartTable = ({
                           "increment"
                         )
                       }
-                      className="bg-teal-400 px-2 rounded-md ml-2"
+                      className="bg-rose-300 px-2 rounded-md ml-2"
                     >
                       +
                     </button>

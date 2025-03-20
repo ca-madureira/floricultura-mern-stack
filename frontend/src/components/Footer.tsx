@@ -2,9 +2,9 @@ import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin } from "react-icons/fa";
 
 export const Footer = () => {
   return (
-    <footer className="flex bg-[#27984c] gap-4 md:gap-0 text-white justify-evenly p-4">
+    <footer className="flex bg-pink-500 gap-4 md:gap-0 text-white justify-evenly p-4">
       <section className="mb-4 md:mb-0">
-        <h3 className="font-bold text-teal-100 mb-2">Dúvidas</h3>
+        <h3 className="font-bold text-rose-100 mb-2">Dúvidas</h3>
         <ul>
           <li>
             <a href="#" className="hover:underline">
@@ -30,7 +30,7 @@ export const Footer = () => {
       </section>
 
       <section className="mb-4 md:mb-0">
-        <h3 className="font-bold text-teal-100 mb-2">Redes Sociais</h3>
+        <h3 className="font-bold text-rose-100 mb-2">Redes Sociais</h3>
         <ul>
           <li className="flex items-center gap-2">
             <FaInstagram />
@@ -60,7 +60,7 @@ export const Footer = () => {
       </section>
 
       <section>
-        <h3 className="font-bold text-teal-100 mb-2">Formas de Pagamento</h3>
+        <h3 className="font-bold text-rose-100 mb-2">Formas de Pagamento</h3>
         <ul>
           <li>
             <a href="#" className="hover:underline">

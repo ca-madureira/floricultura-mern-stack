@@ -30,7 +30,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="bg-[#27984c] p-2 flex justify-between items-center">
+    <header className="bg-pink-500 px-2 py-4 flex justify-between items-center">
       <div
         className="flex items-center text-white font-bold cursor-pointer"
         onClick={handleHome}
@@ -42,7 +42,7 @@ export const Header = () => {
       <nav className="flex gap-4 px-4">
         <Link to="/cart" className="relative">
           <FaCartShopping className="text-white w-6 h-6" />
-          <div className="absolute top-0 right-0 bg-teal-400 text-white rounded-full text-xs font-bold w-4 h-4 flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
+          <div className="absolute top-0 right-0 bg-rose-300 text-white rounded-full text-xs font-bold w-4 h-4 flex items-center justify-center -translate-x-1/2 -translate-y-1/2">
             {cart.items.length}
           </div>
         </Link>

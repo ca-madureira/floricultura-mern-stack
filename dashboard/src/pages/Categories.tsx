@@ -69,7 +69,7 @@ export const Categories = () => {
       >
         <button
           type="submit"
-          className="flex items-center gap-2 text-[#27984c] bg-[#27984c] hover:bg-white hover:text-[#27984c] text-white font-medium border border-[#27984c] p-2 w-full sm:w-auto"
+          className="flex items-center gap-2 text-[#27984c] bg-pink-500 hover:bg-white hover:text-pink-500 text-white font-medium p-2 w-full sm:w-auto"
         >
           <FaPlusCircle />
           {isLoading

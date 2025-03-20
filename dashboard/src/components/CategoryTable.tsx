@@ -22,7 +22,7 @@ interface CategoryTableProps {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#27984c",
+    backgroundColor: "#F43F5E",
     color: theme.palette.common.white,
     fontWeight: "bold",
     padding: "12px 16px",

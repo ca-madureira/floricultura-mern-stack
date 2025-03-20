@@ -11,7 +11,7 @@ import { login } from "../../services/users";
 import { setLogin } from "../../store/auth-slice";
 import { loginSchema } from "../../schemas/userSchema";
 
-import signupImage from "../../assets/signup_login.svg";
+import loginImage from "../../assets/login.svg";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -55,20 +55,22 @@ export const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   return (
-    <section className="flex justify-center h-screen md:items-start mt-14">
-      <section className="relative w-1/2 flex flex-col hidden md:block">
+    <section className="flex justify-center md:items-start">
+      <section className="w-1/2 flex flex-col justify-center hidden md:block">
         <section className="">
-          <h1 className="text-2xl text-center text-[#27984c] font-bold my-4">
+          <h1 className="text-2xl text-center text-pink-500 font-bold my-4">
             Faça seu login e vamos às compras
           </h1>
           <p className="text-lg text-center text-gray-400 font-light my-4">
             Os melhores preços estão aqui!
           </p>
         </section>
-        <img src={signupImage} className="w-full h-full object-cover" />
+        <section className="flex items-center justify-center">
+          <img src={loginImage} className="w-[50%] object-cover" />
+        </section>
       </section>
 
-      <section className="md:w-1/2 flex flex-col md:p-20">
+      <section className="w-full md:w-1/2 flex flex-col p-4 md:p-20">
         <h1 className="text-lg text-[#060606] font-semibold"></h1>
         <section>
           <h3 className="text-2xl font-semibold mb-4 text-slate-600">Login</h3>
@@ -140,7 +142,7 @@ export const Login = () => {
               Ainda não possui conta?{" "}
               <a
                 href="/signup"
-                className="text-[#27984c] font-semibold hover:underline"
+                className="text-pink-500 font-semibold hover:underline"
               >
                 Cadastre-se
               </a>
@@ -152,7 +154,7 @@ export const Login = () => {
               type="submit"
               disabled={!isValid}
               onClick={handleSubmit(onSubmit)}
-              className="w-full text-white font-bold bg-[#27984c] rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
+              className="w-full text-white font-bold bg-pink-500 rounded-md p-4 text-center flex items-center justify-center cursor-pointer"
             >
               Entrar
             </button>

@@ -10,7 +10,7 @@ import { RiLockPasswordLine, RiEyeLine, RiEyeOffLine } from "react-icons/ri";
 import { signup } from "../../services/users";
 import { registerSchema } from "../../schemas/userSchema";
 
-import signupImage from "../../assets/signup_login.svg";
+import signupImage from "../../assets/signup.svg";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -63,20 +63,22 @@ export const Register = () => {
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
   return (
-    <section className="flex justify-center h-screen md:items-start mt-14">
-      <section className="relative w-1/2 flex flex-col hidden md:block">
+    <section className="flex md:items-start">
+      <section className="w-1/2 h-full flex flex-col hidden md:block">
         <section className="">
-          <h1 className="text-2xl text-center text-[#27984c] font-bold my-4">
+          <h1 className="text-2xl text-center text-pink-500 font-bold my-4">
             Faça seu cadastro e conheça nossa papelaria
           </h1>
-          <p className="text-lg text-center text-gray-400 font-light  my-4">
+          <p className="text-lg text-center text-gray-400 font-light my-4">
             Os melhores preços estão aqui!
           </p>
         </section>
-        <img src={signupImage} className="w-full h-full object-cover" />
+        <section className="h-full flex items-center justify-center  mt-16">
+          <img src={signupImage} className="w-[100%] object-cover" />
+        </section>
       </section>
 
-      <section className="md:w-1/2 bg-[#f5f5f5] flex flex-col md:p-20">
+      <section className="w-full md:w-1/2 h-screen bg-[#f5f5f5] flex flex-col p-4 md:p-20 ">
         <h1 className="text-lg text-[#060606] font-semibold"></h1>
         <section className="">
           <h3 className="text-2xl font-semibold mb-4 text-slate-600">
@@ -203,7 +205,7 @@ export const Register = () => {
               Já possui conta?{" "}
               <a
                 href="/login"
-                className="text-[#27984c] font-semibold hover:underline"
+                className="text-pink-500 font-semibold hover:underline"
               >
                 Login
               </a>
@@ -215,7 +217,7 @@ export const Register = () => {
               type="submit"
               disabled={!isValid}
               onClick={handleSubmit(onSubmit)}
-              className="w-full text-white font-bold rounded-md p-4 text-center flex items-center justify-center bg-[#27984c]"
+              className="w-full text-white font-bold rounded-md p-4 text-center flex items-center justify-center bg-pink-500"
             >
               Cadastrar
             </button>

@@ -28,7 +28,7 @@ interface ProductTableProps {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "#27984c",
+    backgroundColor: "#F43F5E",
     color: theme.palette.common.white,
     fontWeight: "bold",
     padding: "12px 16px",
@@ -122,13 +122,13 @@ const ProductTable = ({ handleEdit }: ProductTableProps) => {
               <StyledTableCell align="center">
                 <button
                   onClick={() => handleEdit(product)}
-                  className="text-blue-500 hover:text-blue-700 ml-2"
+                  className="text-orange-500 hover:text-orange-800 ml-2"
                 >
                   <FaEdit className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleDelete(product._id)}
-                  className="text-red-500 hover:text-red-700 ml-2"
+                  className="text-red-700 hover:text-red-900 ml-2"
                 >
                   <MdDeleteForever className="w-5 h-5" />
                 </button>

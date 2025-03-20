@@ -154,7 +154,7 @@ export const Products = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full">
         <button
           type="submit"
-          className="flex items-center md:self-end md:w-[20%] w-[90%] gap-2 text-white hover:text-[#27984c] bg-[#27984c] hover:bg-white text-white font-medium mt-4 md:mt-10 ml-2 md:mr-[8%] border border-[#27984c] p-2"
+          className="flex items-center md:self-end md:w-[20%] w-[90%] gap-2 text-white hover:text-pink-500 hover:bg-pink-300 bg-pink-500 hover:bg-white text-white font-medium mt-4 md:mt-10 ml-2 md:mr-[8%] p-2"
         >
           <FaPlusCircle />
           {isLoading
@@ -296,7 +296,7 @@ export const Products = () => {
 
             <button
               type="button"
-              className="flex items-center justify-center gap-2 border-2 border-[#27984c] hover:bg-white hover:text-[#27984c] bg-[#27984c] text-white font-medium p-2"
+              className="flex items-center justify-center gap-2 hover:bg-pink-300 hover:bg-white hover:text-pink-500 bg-pink-500 text-white font-medium p-2"
               onClick={() => inputFileRef.current?.click()}
             >
               <GrUploadOption className="" /> Carregar
