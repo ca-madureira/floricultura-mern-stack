@@ -62,8 +62,8 @@ export const Cart = () => {
   const isLoading = status === "pending";
 
   return (
-    <section className="flex flex-col h-screen md:flex-row justify-evenly">
-      <div className="w-full md:w-[60%] flex flex-col items-end ">
+    <section className="flex flex-col min-h-screen md:flex-row justify-evenly mb-4">
+      <div className="w-full md:w-[60%] flex flex-col items-end">
         <div className="flex w-full justify-between">
           <Link
             to="/"
