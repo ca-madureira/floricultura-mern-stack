@@ -1,0 +1,22 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "Este é o repositório para o projeto **Flores de Papel**, uma aplicação de e-commerce para uma floricultura online, desenvolvida com a stack MERN (MongoDB, Express, React, Node.js). O sistema é composto por três partes principais:",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix api && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix api"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ca-madureira/floricultura-mern-stack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ca-madureira/floricultura-mern-stack/issues"
+  },
+  "homepage": "https://github.com/ca-madureira/floricultura-mern-stack#readme"
+}

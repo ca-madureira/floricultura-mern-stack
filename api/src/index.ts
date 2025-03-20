@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { connectMongo } from "./db/connectMongo";
+import path from "path";
 
 import { userRouter } from "./routes/user.route";
 import { categoryRouter } from "./routes/category.route";
@@ -15,6 +16,8 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 app.use(cookieParser());
 
@@ -37,6 +40,10 @@ app.use("/products", productRouter);
 app.use("/orders", orderRouter);
 app.use("/admin/categories", categoryRouter);
 app.use("/admin/products", productRouter);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../../frontend/dist", "index.html"));
+});
 
 app.listen(PORT, () => {
   connectMongo();
