@@ -1,6 +1,6 @@
 # Flores de Papel - MERN Stack E-commerce
 
-Este é o repositório para o projeto **Flores de Papel**, uma aplicação de e-commerce para uma papelaria online, desenvolvida com a stack MERN (MongoDB, Express, React, Node.js). O sistema é composto por três partes principais:
+Este é o repositório para o projeto **Flores de Papel**, uma aplicação de e-commerce para uma floricultura online, desenvolvida com a stack MERN (MongoDB, Express, React, Node.js). O sistema é composto por três partes principais:
 
 - **Frontend**: Interface de usuário onde os clientes visualizam os produtos, adicionam ao carrinho e finalizam pedidos.
 - **Dashboard**: Área administrativa para o cadastro de produtos e categorias.
@@ -55,21 +55,21 @@ cd papelaria-mern
 
 
 ```
-<div align="center">
-  <img src="https://github.com/user-attachments/assets/1ee3f560-e1ef-4134-ae33-a01ccc6e2344" width="700" />
-  <img src="https://github.com/user-attachments/assets/20e198ee-9dfb-4c00-a59e-5b2503743665" width="700" />
-</div>
+![floricultura-online](https://github.com/user-attachments/assets/5809e5ff-1077-4ae8-a848-968fc9368f25)
 
 <br/>
 
+## Dashboard
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/5dc36020-35a3-41a1-8003-e69a2e2269c9" width="350"/>
-  <img src="https://github.com/user-attachments/assets/379f5554-9403-4264-9a8b-3a9024d3ddeb" width="300"/>
+  <img src="https://github.com/user-attachments/assets/4f7ea1d3-d0f5-41c4-bfec-900e66d93633"/>
 </div>
 
+<br />
 
-
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/644f5673-6684-4a75-b918-85f0ee88793e"/>
+</div>
 
 
 
