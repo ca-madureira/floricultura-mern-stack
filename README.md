@@ -50,8 +50,8 @@ Certifique-se de ter as seguintes dependências instaladas em sua máquina:
 Clone o repositório para sua máquina local:
 
 ```bash
-git clone https://github.com/ca-madureira/papelaria-mern.git
-cd papelaria-mern
+git clone https://github.com/ca-madureira/floricultura-mern-stack.git
+cd floricultura-mern-stack
 
 
 ```
