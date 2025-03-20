@@ -90,7 +90,7 @@ export const Cart = () => {
         <button
           onClick={handleFinalizeOrder}
           disabled={isLoading}
-          className="bg-rose-400 text-white font-semibold rounded-md p-2"
+          className="bg-rose-500 text-white hover:bg-rose-400 font-semibold rounded-md p-2"
         >
           {isLoading ? "Finalizando..." : "Finalizar compra"}
         </button>

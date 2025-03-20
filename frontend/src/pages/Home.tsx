@@ -89,14 +89,14 @@ export const Home = () => {
               <div className="flex gap-1">
                 <button
                   onClick={() => handleQuantityChange(product._id, "decrement")}
-                  className="bg-rose-200 rounded-md px-2 font-semibold"
+                  className="bg-rose-300 rounded-md px-2 font-semibold"
                 >
                   -
                 </button>
                 {quantities[product._id] || 1}
                 <button
                   onClick={() => handleQuantityChange(product._id, "increment")}
-                  className="bg-rose-200 rounded-md px-2"
+                  className="bg-rose-300 rounded-md px-2"
                 >
                   +
                 </button>
