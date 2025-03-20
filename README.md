@@ -55,14 +55,21 @@ cd papelaria-mern
 
 
 ```
+![floricultura-online](https://github.com/user-attachments/assets/5809e5ff-1077-4ae8-a848-968fc9368f25)
+
+<br/>
+
+## Dashboard
+
 <div align="center">
   <img src="https://github.com/user-attachments/assets/4f7ea1d3-d0f5-41c4-bfec-900e66d93633"/>
 </div>
 
+<br />
 
-
-![floricultura-online](https://github.com/user-attachments/assets/5809e5ff-1077-4ae8-a848-968fc9368f25)
-
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/644f5673-6684-4a75-b918-85f0ee88793e"/>
+</div>
 
 
 
