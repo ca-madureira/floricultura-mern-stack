@@ -63,7 +63,7 @@ export const Cart = () => {
 
   return (
     <section className="flex flex-col min-h-screen md:flex-row justify-evenly mb-4">
-      <div className="w-full md:w-[60%] flex flex-col items-end">
+      <div className="w-full md:w-[60%] flex flex-col">
         <div className="flex w-full justify-between">
           <Link
             to="/"

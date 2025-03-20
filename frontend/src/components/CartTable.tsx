@@ -84,7 +84,7 @@ const CartTable = ({
             <StyledTableCell align="center">Descrição</StyledTableCell>
             <StyledTableCell align="center">Quantidade</StyledTableCell>
             {isMobile ? (
-              <StyledTableCell align="center">Detalhes</StyledTableCell>
+              <StyledTableCell align="center">Mais</StyledTableCell>
             ) : (
               <>
                 <StyledTableCell align="center">Valor unitário</StyledTableCell>
