@@ -71,6 +71,10 @@ cd floricultura-mern-stack
   <img src="https://github.com/user-attachments/assets/644f5673-6684-4a75-b918-85f0ee88793e"/>
 </div>
 
+<br />
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b35d4521-2b89-4fe8-be56-4628ed4cd0c2"/>
+</div>
 
 
