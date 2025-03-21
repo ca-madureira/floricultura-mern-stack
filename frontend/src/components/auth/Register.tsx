@@ -67,7 +67,7 @@ export const Register = () => {
       <section className="w-1/2 h-full flex flex-col hidden md:block">
         <section className="">
           <h1 className="text-2xl text-center text-pink-500 font-bold my-4">
-            Faça seu cadastro e conheça nossa papelaria
+            Faça seu cadastro e conheça nossa floricultura
           </h1>
           <p className="text-lg text-center text-gray-400 font-light my-4">
             Os melhores preços estão aqui!
